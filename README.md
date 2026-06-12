@@ -1,1156 +1,468 @@
-# Apfluence
+# Apfluence — AI-Powered Influencer Marketing Platform
 
-> **AI-powered Influencer Marketing Platform**  
-> Final Year Project (Projet de Fin d'Études) — [University Name] [Year]
-
----
-
-## Table of Contents
-
-1. [Project Overview](#1-project-overview)
-2. [Tech Stack](#2-tech-stack)
-3. [System Architecture](#3-system-architecture)
-4. [Database Schema](#4-database-schema)
-5. [Authentication System](#5-authentication-system)
-6. [Complete Brand Workflow](#6-complete-brand-workflow)
-   - 6.1 [Brand Registration & Sign In](#61-brand-registration--sign-in)
-   - 6.2 [Influencer Discovery](#62-influencer-discovery)
-   - 6.3 [Building Lists](#63-building-lists)
-   - 6.4 [Selected Influencers View](#64-selected-influencers-view)
-   - 6.5 [Creating a Campaign](#65-creating-a-campaign)
-   - 6.6 [Campaign Management](#66-campaign-management)
-   - 6.7 [Adding Influencers to a Campaign](#67-adding-influencers-to-a-campaign)
-   - 6.8 [Bulk Email Outreach](#68-bulk-email-outreach)
-   - 6.9 [Email Template System](#69-email-template-system)
-   - 6.10 [Gmail SMTP Configuration](#610-gmail-smtp-configuration)
-   - 6.11 [The Influencer Experience - Receiving the Email](#611-the-influencer-experience---receiving-the-email)
-   - 6.12 [The Application Form](#612-the-application-form)
-7. [Influencer Dashboard](#7-influencer-dashboard)
-8. [Project Structure](#8-project-structure)
-9. [Getting Started](#9-getting-started)
-10. [Environment Variables](#10-environment-variables)
-11. [API Reference](#11-api-reference)
+> **Full-Lifecycle B2B SaaS Creator Partnerships & Campaign Execution Platform**
+> 
+> Final Year Project (Projet de Fin d'Études) — Developed by **Cipher-Shadow1**
+> 
+> GitHub Repository: [https://github.com/Cipher-Shadow1/Apfluence_Final_version](https://github.com/Cipher-Shadow1/Apfluence_Final_version)
 
 ---
 
-## 1. Project Overview
+## 📌 Project Overview & Pitch
 
-Apfluence is a comprehensive **B2B SaaS influencer marketing platform** designed to automate and streamline the entire brand-creator partnership lifecycle - from initial creator discovery to campaign execution and performance tracking.
+Apfluence is a production-ready, full-stack B2B SaaS platform designed to streamline and automate the entire brand-creator collaboration lifecycle. From automated discovery and AI-powered creator vetting to campaign pipeline tracking, in-app messaging, and localized financial wallet payments, Apfluence consolidates fragmented marketing workflows into a unified solution.
 
-### The Problem
+### The Problem We Solved
+Influencer marketing remains broken and manual for most emerging markets:
+*   **Scattered Discovery:** Vetting creators requires manually jumping across Instagram, TikTok, YouTube, and Facebook.
+*   **Unverified Metrics:** Brands rely on subjective follower counts, leaving them vulnerable to follower fraud and low-quality engagement.
+*   **Fragmented Tools:** Communication, contract signing, brief sharing, and payment occur across email, WhatsApp, spreadsheets, and banking apps.
+*   **Payment Barriers:** International card-based platforms fail to support local payment rails (such as **CCP** and **BaridiMob** in Algerian Dinars - DZD).
 
-Traditional influencer marketing is fragmented and manual:
-
-- Brands discover creators across multiple platforms with no unified tool
-- Outreach is done via personal email with no tracking or automation
-- Contract and compensation management is handled through spreadsheets
-- There is no structured workflow to move from "interested in this creator" to "campaign live and tracked"
-
-### The Solution
-
-Apfluence provides a unified platform where:
-
-| Phase            | What Apfluence Does                                                        |
-| ---------------- | -------------------------------------------------------------------------- |
-| **Discovery**    | Search and filter influencers by niche, platform, engagement, location     |
-| **Organization** | Save influencers into named lists for campaign targeting                   |
-| **Campaigns**    | Create structured campaigns with compensation, products, contracts         |
-| **Outreach**     | Send personalized bulk emails with unique application links per influencer |
-| **Application**  | Influencers respond via a branded form - accept, decline, or counter-offer |
-| **Management**   | Brand tracks all responses and manages active collaborations               |
-
-### Two User Types
-
-**Brands** - Marketing managers and agencies who:
-
-- Discover and vet creators
-- Create and manage campaigns
-- Send outreach and track responses
-
-**Influencers/Creators** - Content creators who:
-
-- Receive campaign offers via email
-- Review offers and apply through a public form
-- Manage their active collaborations through the platform
+**Apfluence** brings discovery, AI metrics evaluation, campaign creation, messaging, and localized payments into a single, cohesive hub.
 
 ---
 
-## 2. Tech Stack
+## 🛠️ Project Setup & Run Instructions
 
-| Layer               | Technology                 | Purpose                                                |
-| ------------------- | -------------------------- | ------------------------------------------------------ |
-| **Framework**       | Next.js (App Router)       | Full-stack React framework with SSR and route handlers |
-| **Language**        | TypeScript                 | End-to-end type safety                                 |
-| **Styling**         | Tailwind CSS 4             | Utility-first CSS framework                            |
-| **Animation**       | Framer Motion              | UI transitions and micro-interactions                  |
-| **Database**        | PostgreSQL (Supabase)      | Relational database with Row Level Security            |
-| **Auth**            | Custom + Identity Provider | Role-based authentication for brands and influencers   |
-| **Email**           | Nodemailer + Gmail SMTP    | Outreach email delivery via brand's own Gmail          |
-| **Storage**         | Supabase Storage           | PDF contract uploads from influencers                  |
-| **Components**      | Shadcn/UI + Lucide         | Headless UI primitives and icon system                 |
-| **Package Manager** | pnpm                       | Fast, disk-efficient dependency management             |
+Apfluence utilizes a **modular, two-layer architecture**:
+1.  **Frontend (Next.js Application):** Handles user experience, auth dashboards, campaign workflows, communication, and wallet ledger management.
+2.  **Backend (FastAPI Scraping & ML Engine):** Handles dynamic data collection, sentiment/credibility scoring, and Brand-Influencer matching.
+
+Both services communicate through a shared **Supabase (PostgreSQL)** database.
 
 ---
 
-## 3. System Architecture
-
-### High-Level Architecture
-
-```text
-┌─────────────────────────────────────────────────────────────────┐
-│                        APFLUENCE PLATFORM                      │
-├────────────────────┬────────────────────┬───────────────────────┤
-│   BRAND DASHBOARD  │  INFLUENCER PORTAL │   PUBLIC APPLY PAGE   │
-│   /brand/*         │  /influencer/*     │   /apply/[token]      │
-│   (Authenticated)  │  (Authenticated)   │   (No auth required)  │
-├────────────────────┴────────────────────┴───────────────────────┤
-│                        NEXT.JS APP ROUTER                      │
-│                    API Routes + Server Actions                 │
-├──────────────────────────────┬──────────────────────────────────┤
-│         SUPABASE             │         EXTERNAL SERVICES        │
-│  • PostgreSQL Database       │  • Gmail SMTP (brand's account)  │
-│  • Row Level Security        │  • Supabase Storage (contracts)  │
-│  • Realtime (future)         │  • Identity Provider (auth)      │
-└──────────────────────────────┴──────────────────────────────────┘
-```
-
-### Request Flow
-
-```text
-User Browser
-     │
-     ▼
-Next.js Edge Middleware ──── Auth Check ──── Redirect if not authenticated
-     │
-     ▼
-App Router (RSC + Client Components)
-     │
-     ├── Server Components → Supabase Server Client
-     └── Client Components → Supabase Browser Client (enforces RLS)
-```
-
-### Role-Based Access Control
-
-| Route Pattern              | Access                      |
-| -------------------------- | --------------------------- |
-| `/brand/*`                 | Brand users only            |
-| `/influencer/*`            | Influencer users only       |
-| `/apply/[token]`           | Public - token-based access |
-| `/sign-in/*`, `/sign-up/*` | Unauthenticated users       |
-
----
-
-## 4. Database Schema
-
-The database consists of core tables organized into functional groups.
-
-### 4.1 User & Identity Tables
-
-| Table           | Purpose                                                           |
-| --------------- | ----------------------------------------------------------------- |
-| `brands`        | Brand company profiles, SMTP config, commercial settings          |
-| `influencers`   | Creator profiles, metrics, commercial preferences                 |
-| `platform_type` | Enum for social platforms (instagram, tiktok, youtube, x, twitch) |
-
-### 4.2 Creator Data Tables
-
-| Table                         | Purpose                                             |
-| ----------------------------- | --------------------------------------------------- |
-| `influencer_platform_metrics` | Per-platform stats: followers, engagement, CPE, CPV |
-| `influencer_posts`            | Individual post performance data                    |
-
-### 4.3 List Management Tables
-
-| Table                    | Purpose                                       |
-| ------------------------ | --------------------------------------------- |
-| `brand_lists`            | Named influencer lists per brand              |
-| `brand_list_influencers` | Junction: which influencers are in which list |
-
-### 4.4 Campaign Tables
-
-| Table                  | Purpose                                                 |
-| ---------------------- | ------------------------------------------------------- |
-| `campaigns`            | Campaign definitions, compensation, targeting criteria  |
-| `campaign_products`    | Products offered in paid-with-product campaigns         |
-| `campaign_influencers` | Per-influencer outreach status and application response |
-| `campaign_activity`    | Event log for activity feed                             |
-| `brand_products`       | Reusable brand product catalog                          |
-
-### 4.5 Key Relationships
-
-```text
-brands (1) ---------------- (N) brand_lists
-brands (1) ---------------- (N) campaigns
-
-brand_lists (N) ----------- (M) influencers
-                             via brand_list_influencers
-
-campaigns (1) ------------- (N) campaign_products
-campaigns (1) ------------- (N) campaign_influencers
-campaigns (1) ------------- (N) campaign_activity
-
-influencers (1) ----------- (N) influencer_platform_metrics
-influencers (1) ----------- (N) influencer_posts
-influencers (1) ----------- (N) campaign_influencers
-```
-
-### 4.6 The Magic Link System
-
-The `campaign_influencers.token` column is the cornerstone of the application flow. Each row gets a unique UUID generated at insertion time.
-
-```sql
-token UUID NOT NULL UNIQUE DEFAULT gen_random_uuid()
-```
-
-This token constructs the influencer's personal URL:
-
-`https://apfluence.com/apply/{token}`
-
-The token:
-
-- Identifies the exact campaign + influencer combination
-- Requires no login from the influencer
-- Is unique per influencer per campaign
-- Tracks lifecycle: `pending -> email_sent -> viewed -> accepted/declined/countered`
-
-### 4.7 Row Level Security
-
-RLS is enabled across brand and influencer scoped tables. Policies ensure each user only accesses rows owned by their profile identity.
-
----
-
-## 5. Authentication System
-
-Apfluence implements a custom role-based authentication system with two distinct roles: **brand** and **influencer**.
-
-### 5.1 Registration Flow
-
-Each role has a dedicated sign-up flow:
-
-- Brands: `/sign-up/brand` -> credentials -> verification -> role assignment -> `/brand`
-- Influencers: `/sign-up/influencer` -> credentials -> verification -> role assignment -> `/influencer`
-
-Role is stored in user metadata and validated by middleware/layout guards.
-
-### 5.2 Session & Route Protection
-
-The route protection layer enforces role isolation:
-
-- Brand session can only access `/brand/*`
-- Influencer session can only access `/influencer/*`
-- Cross-role access is redirected to the correct dashboard
-
-### 5.3 Sign-In & Sing up Pages
-
-![Brand sign-in page](/01-brand-signin.png)
-
-![Brand sign-up page](/02-brand-signup.png)
-
----
-
-## 6. Complete Brand Workflow
-
-This section documents the complete end-to-end journey of a brand user on the Apfluence platform.
-
-### 6.1 Brand Registration & Sign In
-
-A brand manager creates an account by visiting `/sign-up/brand`. They provide email and password. After verification, their account is created and they are redirected to the brand dashboard.
-
-![Brand sign-up form](/03-Email-send-to-the-brand.png)
-
-![Email verification step](/04-brand-email-verify.png)
-
-![Brand dashboard empty state](/05-brand-dashboard-empty.png)
-
-### 6.2 Influencer Discovery
-
-The main brand dashboard (`/brand`) is the Discovery page. This is where brands search, filter, and evaluate influencer profiles.
-
-**Key Features**
-
-**Token Search Bar** - Supports 3 token types:
-
-- `@handle` - search by platform handle (example: `@zman.gridiron`)
-- `#niche` - filter by niche (example: `#fashion`)
-- `keyword` - full-text search across name, bio, username
-
-Each token is created by typing and pressing Enter. Tokens are shown as pills and removable individually.
-
-![Discovery token search](/06-discovery-search.png)
-
-**Influencer Result Cards** show:
-
-- Avatar, name, username, location with country flag
-- Authenticity score (0-100)
-- Platform badges and follower counts
-- Niche tags
-
-![Influencer result cards](/07-influencer-cards.png)
-
-**Influencer Side Panel** includes:
-
-- Platform metrics (engagement rate, CPE, CPV, avg likes/comments)
-- Expandable platform rows with recent posts
-- Gallery images
-- Save to List action
-
-![Influencer side panel overview](/08-sidepanel-overview.png)
-
-![Side panel posts](/09-sidepanel-posts.png)
-
-### 6.3 Building Lists
-
-Lists let brands organize influencers into named groups for targeted campaign outreach.
-
-**Creating a List**
-
-From header: **My Lists -> New List**
-
-1. Enter list name
-2. Choose color
-3. Click Create
-
-![Create list modal](/10-create-list-modal.png)
-
-**Adding Influencers to a List**
-
-From side panel, click **Save to List**:
-
-- Dropdown displays all brand lists
-- List counts are shown
-- Existing membership is checkmarked
-- Click toggles add/remove with optimistic UI
-
-![Save to list dropdown](/11-save-to-list-button.png)
-
-**Lists Dropdown in Header**
-
-Header always shows **My Lists** with list name, color dot, and influencer count.
-
-![Header lists dropdown](/12-lists-header-dropdown.png)
-
-### 6.4 Selected Influencers View
-
-The **Selected** tab navigates to `/brand/selected`, showing saved influencers organized by list.
-
-- Left sidebar: list picker + influencer counts
-- Right panel: influencer card grid for selected list
-- Includes in-list search + hover remove action
-
-![Selected page empty](/13-selected-page-empty.png)
-
-![Selected page with influencers](/14-selected-page-with-influencers.png)
-
-### 6.5 Creating a Campaign
-
-Campaigns are created from `/brand/campaigns` via **+ New Campaign**.
-
-Wizard state is managed by `CampaignWizardContext` and submitted from final step.
-
-**Step 1 - Campaign Type**
-
-- Paid: fixed flat fee per influencer
-- Paid with Product: influencer selects products from campaign catalog
-
-![Wizard step 1 type](/15.1-wizard-step1-type.png)
-
-**Step 2 - Campaign Details**
-
-- Campaign name and description
-- Campaign logo/icon and color
-- Content tracking tags (hashtags and mentions)
-
-![Wizard step 2 details](/16-wizard-step2-details.png)
-
-**Step 3 - Compensation Setup**
-
-- Paid campaign: flat fee input
-- Paid with Product campaign:
-  - Add products (name, image URL, value, description)
-  - Configure max product count / total value
-  - Toggle product price visibility
-
-![Wizard step 3 paid](/17-wizard-step3-paid.png)
-
-![Wizard step 3 product](/18-wizard-step3-product.png)
-
-**Step 4 - Email Outreach Template**
-
-- Subject line
-- Rich text body + merge field insertion
-- `{{application_link}}` highlighted and validated through magic link banner
-
-![Wizard email step](/21-wizard-step5-email.png)
-
-**Step 5 - Target List Selection**
-
-Select list to import influencers into campaign at creation time.
-
-![Wizard finalize step](/22-wizard-step6-finilaze.png)
-
-### 6.6 Campaign Management
-
-After creation, campaigns appear in `/brand/campaigns`.
-
-Page includes:
-
-- Stats row: Engaged Influencers / Emails Sent / Response Rate
-- Campaign list/grid toggle
-- Activity feed
-
-Campaign cards show:
-
-- Campaign avatar, name, date
-- Status badge (Draft / Active / Paused / Completed / Cancelled)
-- Type badge (Paid / Paid with Product)
-- Creators / Engaged / Response metrics
-
-![Campaigns list view](/23-campaigns-list.png)
-
-![Campaigns grid view](/24-campaigns-Grid.png)
-
-Campaign detail page (`/brand/campaigns/[id]`) shows:
-
-- Pipeline stages and progress
-- Contextual toolbar actions on selection
-- Influencer table with status and offer fields
-
-![Campaign detail empty state](/25-campaign-detail-empty.png)
-
-![Campaign detail with influencers](/26-campaign-detail-with-influencers.png)
-
-### 6.7 Adding Influencers to a Campaign
-
-From campaign detail, click **Add creators**.
-
-System behavior:
-
-- Fetches `brand_list_influencers` for selected list
-- Inserts `campaign_influencers` rows with `status = 'pending'`
-- Generates unique token UUID per influencer
-- Silently skips duplicates already in campaign
-
-![Add creators modal](/27-add-creators-modal.png)
-
-### 6.8 Bulk Email Outreach
-
-With campaign influencers assigned, brand can send personalized outreach.
-
-**Send Flow**
-
-1. Select influencers via checkboxes
-2. Click **Email** in contextual toolbar
-3. Confirm in `BulkEmailPanel`
-4. Click Send
-
-**Backend Flow (`/api/email/campaign`)**
-
-For each selected influencer:
-
-1. Resolve template variables
-2. Resolve unique `{{application_link}}`
-3. Send via brand Gmail SMTP
-4. Update `campaign_influencers.status = 'email_sent'` and `email_sent_at`
-5. Insert event into `campaign_activity`
-
-![Bulk email panel](/28-bulk-email-panel.png)
-
-### 6.9 Email Template System
-
-The template system uses merge fields replaced at send time.
-
-| Token                  | Replaced With                         |
-| ---------------------- | ------------------------------------- |
-| `{{influencer_name}}`  | Influencer full name                  |
-| `{{first_name}}`       | Influencer first name                 |
-| `{{brand_name}}`       | Brand company name                    |
-| `{{campaign_name}}`    | Campaign name                         |
-| `{{application_link}}` | Unique per-influencer application URL |
-| `{{promo_code}}`       | Custom promo code (if configured)     |
-| `{{affiliate_link}}`   | Affiliate link (if configured)        |
-
-The Outreach page (`/brand/outreach`) provides:
-
-- Subject input
-- Rich text body editor
-- Merge fields panel
-- Magic link banner for `{{application_link}}`
-
-![Outreach merge fields](/29-outreach-merge-fields.png)
-
-### 6.10 Gmail SMTP Configuration
-
-Emails are sent from the brand's own Gmail identity.
-
-**Setup Process**
-
-1. Open Account settings
-2. Go to Outreach tab
-3. Enter Gmail address + Gmail App Password
-4. Save and validate connection status
-
-**Security**
-
-- App Password stored in `brands.gmail_smtp_app_password`
-- Access is policy-protected
-- Secret is only consumed server-side when sending
-- Brand can revoke/update credentials anytime
-
-![SMTP settings](/30-smtp-settings.png)
-
-### 6.11 The Influencer Experience - Receiving the Email
-
-Influencer receives a personalized invitation email with unique URL:
-
-`https://apfluence.com/apply/{unique-token}`
-
-On link click:
-
-1. Public page opens (`/apply/{token}`)
-2. Token resolves campaign + influencer row
-3. First open updates `email_sent -> viewed` and sets `viewed_at`
-4. Brand activity feed logs open event
-
-![Email received by influencer](/31-email-received.png)
-
-### 6.12 The Application Form
-
-The application form (`/apply/[token]`) is token-authenticated and does not require account login.
-
-**Page Structure**
-
-Fixed header + fixed footer with response actions.
-
-**Section 1 - Campaign Hero**
-
-- Campaign avatar/logo
-- Campaign name + type badge
-- Personalized influencer greeting
-- Campaign description
-
-![Apply page hero section](/32-apply-hero.png)
-
-**Section 2 - Campaign Compensation**
-
-- Paid: flat fee + optional counter-offer
-- Paid with Product: product selector modal + detail view + selected list
-
-![Apply flat fee section](/33-apply-flat-fee.png)
-
-![Apply product section](/34-apply-product-section.png)
-
-![Apply product modal list](</35-apply-product-modal-list%20(2).png>)
-
-![Apply product detail](/36-apply-product-detail.png)
-
-**Section 3 - Campaign Brief**
-
-If brief PDF exists, user can open and preview embedded PDF.
-
-![Apply brief PDF section](/38-apply-brief-pdf.png)
-
-**Section 4 - Contract**
-
-If contract is required:
-
-- Review contract PDF
-- Upload signed PDF
-- Save URL in `campaign_influencers.signed_contract_url`
-
-![Apply contract upload section](/39-apply-contract-upload.png)
-
-**Section 5 - Response & Message**
-
-- Optional message (max 500 chars)
-- Optional counter-offer amount for paid campaigns
-
-**Section 6 - Fixed Footer Actions**
-
-| Action        | Result                                                    |
-| ------------- | --------------------------------------------------------- |
-| Accept offer  | `apply_status -> accepted`, `status -> accepted`          |
-| Refuse        | confirm modal then `apply_status -> declined`             |
-| Counter-offer | `apply_status -> countered`, saves `counter_offer_amount` |
-
-After submit, thank-you screen replaces page:
-
-- Green for accepted
-- Neutral for declined
-- Blue for countered
-
-![Apply thank-you accepted screen](/40-apply-thankyou-accepted.png)
-
-**Brand Side - Seeing the Response**
-
-Campaign detail updates:
-
-- Influencer status updated in table
-- Pipeline counts updated
-- Activity event logged
-
----
-
-## 7. Influencer Dashboard
-
-Influencers with platform accounts access `/influencer`.
-
-### Tabs
-
-| Tab              | Route                          | Content                                              |
-| ---------------- | ------------------------------ | ---------------------------------------------------- |
-| Home             | `/influencer`                  | Greeting, pending offers, quick stats, recent offers |
-| Offers           | `/influencer/offers`           | All offers with status filters                       |
-| Active Campaigns | `/influencer/active-campaigns` | Accepted campaigns and deliverables                  |
-| My Profile       | `/influencer/profile`          | Read-only public profile preview                     |
-| Settings         | `/influencer/settings`         | Commercial preferences                               |
-
-### Home Tab
-
-Time-based greeting, pending alert, summary stats, and recent offers.
-
-### Offers Tab
-
-Filter tabs: All / New / Accepted / Declined / Countered.  
-New offers display `NEW` badge + direct **View Offer** CTA.
-
-### Active Campaigns Tab
-
-Shows accepted campaigns with compensation, due dates, urgency indicator, publish window, and document links.
-
-### Profile Tab (Read-Only)
-
-Shows public profile exactly as brands view it in discovery.
-
-### Settings Tab
-
-Editable preferences:
-
-- WhatsApp/phone
-- Currency
-- Min/max rates
-- Product gifting toggle
-- Shipping regions
-- Languages
-
----
-
-## 8. Project Structure
-
-```text
-Apfluence
-|-- app
-|   |-- (auth)
-|   |   |-- forgot-password
-|   |   |   -- page.tsx
-|   |   |-- sign-in
-|   |   |   |-- brand
-|   |   |   |   -- page.tsx
-|   |   |   -- influencer
-|   |   |       -- page.tsx
-|   |   |-- sign-up
-|   |   |   |-- brand
-|   |   |   |   |-- verify
-|   |   |   |   |   -- page.tsx
-|   |   |   |   -- page.tsx
-|   |   |   |-- influencer
-|   |   |   |   -- page.tsx
-|   |   |   -- role
-|   |   -- layout.tsx
-|   |-- (dev)
-|   |   -- preview
-|   |       -- campaigns
-|   |           -- [id]
-|   |               -- page.tsx
-|   |-- (landing)
-|   |   |-- layout.tsx
-|   |   -- page.tsx
-|   |-- (protected)
-|   |   |-- brand
-|   |   |   |-- analytics
-|   |   |   |   |-- loading.tsx
-|   |   |   |   -- page.tsx
-|   |   |   |-- campaigns
-|   |   |   |   |-- [id]
-|   |   |   |   |   |-- loading.tsx
-|   |   |   |   |   -- page.tsx
-|   |   |   |   |-- create
-|   |   |   |   |   |-- step-1
-|   |   |   |   |   |   -- page.tsx
-|   |   |   |   |   |-- step-2
-|   |   |   |   |   |   -- page.tsx
-|   |   |   |   |   |-- step-3
-|   |   |   |   |   |   -- page.tsx
-|   |   |   |   |   |-- step-4
-|   |   |   |   |   |   -- page.tsx
-|   |   |   |   |   |-- step-5
-|   |   |   |   |   |   -- page.tsx
-|   |   |   |   |   |-- step-6
-|   |   |   |   |   |   -- page.tsx
-|   |   |   |   |   -- layout.tsx
-|   |   |   |   |-- CampaignsView.tsx
-|   |   |   |   |-- loading.tsx
-|   |   |   |   -- page.tsx
-|   |   |   |-- discovery
-|   |   |   |   -- page.tsx
-|   |   |   |-- lists
-|   |   |   |   |-- loading.tsx
-|   |   |   |   -- page.tsx
-|   |   |   |-- outreach
-|   |   |   |   |-- loading.tsx
-|   |   |   |   -- page.tsx
-|   |   |   |-- payments
-|   |   |   |   |-- loading.tsx
-|   |   |   |   -- page.tsx
-|   |   |   |-- selected
-|   |   |   |   -- page.tsx
-|   |   |   |-- settings
-|   |   |   |   -- page.tsx
-|   |   |   |-- support
-|   |   |   |   |-- loading.tsx
-|   |   |   |   -- page.tsx
-|   |   |   |-- layout.tsx
-|   |   |   -- page.tsx
-|   |   |-- influencer
-|   |   |   |-- active-campaigns
-|   |   |   |   -- page.tsx
-|   |   |   |-- deals
-|   |   |   |   -- page.tsx
-|   |   |   |-- offers
-|   |   |   |   -- page.tsx
-|   |   |   |-- profile
-|   |   |   |   -- page.tsx
-|   |   |   |-- settings
-|   |   |   |   -- page.tsx
-|   |   |   |-- layout.tsx
-|   |   |   -- page.tsx
-|   |   -- layout.tsx
-|   |-- actions
-|   |   |-- brand.ts
-|   |   -- get-auth-status.ts
-|   |-- api
-|   |   |-- apply
-|   |   |   -- [token]
-|   |   |       -- route.ts
-|   |   |-- auth
-|   |   |   |-- brand-onboard
-|   |   |   |   -- route.ts
-|   |   |   -- influencer-onboard
-|   |   |       -- route.ts
-|   |   |-- brand-products
-|   |   |   -- route.ts
-|   |   |-- email
-|   |   |   -- campaign
-|   |   |       -- route.ts
-|   |   |-- img-proxy
-|   |   |   -- route.ts
-|   |   |-- pdf-preview
-|   |   |   -- route.ts
-|   |   -- set-role
-|   |       -- route.ts
-|   |-- apply
-|   |   -- [token]
-|   |       |-- ApplyOfferContent.tsx
-|   |       -- page.tsx
-|   |-- auth
-|   |   -- auth-callback
-|   |       |-- AuthCallbackClient.tsx
-|   |       -- page.tsx
-|   |-- favicon.ico
-|   |-- globals.css
-|   |-- layout.tsx
-|   -- shimmer.css
-|-- components
-|   |-- auth
-|   |   |-- AuthInput.tsx
-|   |   |-- BrandSignInForm.tsx
-|   |   |-- BrandSignUpForm.tsx
-|   |   |-- BrandVerifyEmailForm.tsx
-|   |   |-- InfluencerSignInForm.tsx
-|   |   -- InfluencerSignUpForm.tsx
-|   |-- brand
-|   |   |-- apply
-|   |   |   -- ProductSelectionModal.tsx
-|   |   |-- campaigns
-|   |   |   |-- wizard
-|   |   |   |   |-- CampaignWizardContext.tsx
-|   |   |   |   -- TargetListSelector.tsx
-|   |   |   |-- AddCreatorsModal.tsx
-|   |   |   -- BulkEmailPanel.tsx
-|   |   |-- coming-soon
-|   |   |   |-- ComingSoonPage.tsx
-|   |   |   |-- FloatingIconsLayer.tsx
-|   |   |   -- index.ts
-|   |   |-- lists
-|   |   |   |-- CreateListModal.tsx
-|   |   |   -- ListsDropdown.tsx
-|   |   |-- outreach
-|   |   |   |-- EmailBodyEditor.tsx
-|   |   |   |-- InsertLinkModal.tsx
-|   |   |   -- MergeFieldsPanel.tsx
-|   |   |-- profile
-|   |   |   |-- tabs
-|   |   |   |   |-- CompanyTab.tsx
-|   |   |   |   |-- OutreachTab.tsx
-|   |   |   |   |-- ProfileTab.tsx
-|   |   |   |   |-- SecurityTab.tsx
-|   |   |   |   -- StatusBanner.tsx
-|   |   |   |-- BrandProfileModal.tsx
-|   |   |   -- types.ts
-|   |   |-- shared
-|   |   |   -- GmailAppPasswordModal.tsx
-|   |   |-- sidepanel
-|   |   |   |-- influencer-side-panel.types.ts
-|   |   |   |-- influencer-side-panel.utils.tsx
-|   |   |   |-- InfluencerSidePanelHeader.tsx
-|   |   |   |-- InfluencerSidePanelPlatformRow.tsx
-|   |   |   |-- InfluencerSidePanelStatColumn.tsx
-|   |   |   |-- InfluencerSidePanelTabBar.tsx
-|   |   |   |-- OutreachTab.tsx
-|   |   |   |-- PlatformPostCard.tsx
-|   |   |   -- SaveToListButton.tsx
-|   |   |-- BrandHomeClient.tsx
-|   |   |-- Header.tsx
-|   |   |-- ImportSection.tsx
-|   |   |-- InfluencerResultCard.tsx
-|   |   |-- InfluencerResultCardSkeleton.tsx
-|   |   |-- InfluencerSidePanel.tsx
-|   |   |-- MobileBlocker.tsx
-|   |   |-- SearchSection.tsx
-|   |   |-- Sidebar.tsx
-|   |   |-- TokenSearchBar.tsx
-|   |   -- TrendingSearches.tsx
-|   |-- influencer
-|   |   |-- Header.tsx
-|   |   |-- InfluencerCommercialReadOnly.tsx
-|   |   |-- InfluencerHeader.tsx
-|   |   -- InfluencerPublicProfileView.tsx
-|   |-- landing
-|   |   |-- AIMarketingSection.tsx
-|   |   |-- Footer.tsx
-|   |   |-- HeroSection.tsx
-|   |   |-- InfluencerCard.tsx
-|   |   |-- InfluencerDiscoverySection.tsx
-|   |   |-- Navbar.tsx
-|   |   -- NotFoundPage.tsx
-|   -- ui
-|       |-- alert-dialog.tsx
-|       |-- alert.tsx
-|       |-- AnimatedGradientCard.tsx
-|       |-- aspect-ratio.tsx
-|       |-- AuroraText.tsx
-|       |-- avatar-circles.tsx
-|       |-- avatar.tsx
-|       |-- badge.tsx
-|       |-- button.tsx
-|       |-- calendar.tsx
-|       |-- card.tsx
-|       |-- checkbox.tsx
-|       |-- collapsible.tsx
-|       |-- dialog.tsx
-|       |-- dropdown-menu.tsx
-|       |-- form.tsx
-|       |-- input-otp.tsx
-|       |-- input.tsx
-|       |-- label.tsx
-|       |-- LogoCloudMarquee.tsx
-|       |-- popover.tsx
-|       |-- progress.tsx
-|       |-- radio-group.tsx
-|       |-- select.tsx
-|       |-- separator.tsx
-|       |-- sheet.tsx
-|       |-- skeleton.tsx
-|       |-- slider.tsx
-|       |-- sonner.tsx
-|       |-- switch.tsx
-|       |-- tabs.tsx
-|       |-- textarea.tsx
-|       |-- toggle-group.tsx
-|       |-- toggle.tsx
-|       |-- tooltip.tsx
-|       |-- use-mobile.ts
-|       -- utils.ts
-|-- docs
-|   |-- auth
-|   |   -- remove-clerk-migration-checklist.md
-|   |-- diagrams
-|   |   |-- DrawIo
-|   |   |   |-- Auth
-|   |   |   |   |-- auth-state-machine.drawio
-|   |   |   |   |-- brand_signin_sequence_supabase.drawio
-|   |   |   |   |-- brand_signup_sequence_supabase.drawio
-|   |   |   |   -- README.md
-|   |   |   |-- Brand
-|   |   |   |   |-- add_creators_campaign_sequence.drawio
-|   |   |   |   |-- brand_profile_settings_sequence.drawio
-|   |   |   |   |-- bulk_email_send_sequence.drawio
-|   |   |   |   |-- campaign_create_sequence.drawio
-|   |   |   |   |-- campaign_detail_brand_review_sequence.drawio
-|   |   |   |   |-- discovery_save_to_list_sequence.drawio
-|   |   |   |   |-- influencer_application_flow_sequence.drawio
-|   |   |   |   -- list_create_and_add_influencer_sequence.drawio
-|   |   |   -- Database
-|   |   |       -- apfluence-db-schema.drawio
-|   |   |-- Mermaid
-|   |   |   -- Auth diagrames
-|   |   |       |-- brand-signin.mermaid
-|   |   |       |-- brand-signup.mermaid
-|   |   |       |-- brand_sign_in_flow.mermaid
-|   |   |       |-- brand_sign_up_flow.mermaid
-|   |   |       |-- influencer-signin.mermaid
-|   |   |       |-- influencer-signup.mermaid
-|   |   |       |-- influencer_sign_in_flow.mermaid
-|   |   |       -- influencer_sign_up_flow.mermaid
-|   |   -- README.md
-|   |-- screenshots
-|   |-- apfluence_system_reference.pdf
-|   |-- Documentation.pdf
-|   -- system_overview_new.pdf
-|-- hooks
-|   -- useDebounce.ts
-|-- lib
-|   |-- adapters
-|   |   -- normalizeInfluencer.ts
-|   |-- auth
-|   |   -- useSupabaseUser.ts
-|   |-- cache
-|   |   -- listsCache.ts
-|   |-- email
-|   |   |-- resolveVariables.ts
-|   |   -- signature.ts
-|   |-- queries
-|   |   |-- campaigns.client.ts
-|   |   |-- campaigns.ts
-|   |   |-- influencers.ts
-|   |   |-- lists.client.ts
-|   |   |-- lists.ts
-|   |   |-- posts.ts
-|   |   |-- products.ts
-|   |   -- smtp.ts
-|   |-- supabase
-|   |   |-- client.ts
-|   |   |-- middleware.ts
-|   |   -- server.ts
-|   |-- data.ts
-|   |-- money.ts
-|   |-- supabase-admin.ts
-|   |-- supabase.ts
-|   -- utils.ts
-|-- MdxToPdf
-|   |-- main.py
-|   |-- README.md
-|   -- requirements.txt
-|-- public
-|   |-- 01-brand-signin.png
-|   |-- 02-brand-signup.png
-|   |-- 03-Email-send-to-the-brand.png
-|   |-- 04-brand-email-verify.png
-|   |-- 05-brand-dashboard-empty.png
-|   |-- 06-discovery-search.png
-|   |-- 07-influencer-cards.png
-|   |-- 08-sidepanel-overview.png
-|   |-- 09-sidepanel-posts.png
-|   |-- 10-create-list-modal.png
-|   |-- 11-save-to-list-button.png
-|   |-- 11.2-save-to-list-button.png
-|   |-- 12-lists-header-dropdown.png
-|   |-- 13-selected-page-empty.png
-|   |-- 14-selected-page-with-influencers.png
-|   |-- 15-camapings-dashboard.png
-|   |-- 15.1-wizard-step1-type.png
-|   |-- 16-wizard-step2-details.png
-|   |-- 17-wizard-step3-paid.png
-|   |-- 18-wizard-step3-product.png
-|   |-- 18-wizard-step4-documents.png
-|   |-- 19-wizard-step4-time-line-campaings.png
-|   |-- 20-wizard-step4-Application form rules.png
-|   |-- 21-wizard-step5-email.png
-|   |-- 22-wizard-step6-finilaze.png
-|   |-- 23-campaigns-list.png
-|   |-- 24-campaigns-Grid.png
-|   |-- 25-campaign-detail-empty.png
-|   |-- 26-campaign-detail-with-influencers.png
-|   |-- 27-add-creators-modal.png
-|   |-- 28-bulk-email-panel.png
-|   |-- 29-outreach-merge-fields.png
-|   |-- 30-smtp-settings.png
-|   |-- 31-email-received.png
-|   |-- 32-apply-hero.png
-|   |-- 33-apply-flat-fee.png
-|   |-- 34-apply-product-section.png
-|   |-- 35-apply-product-modal-list (2).png
-|   |-- 36-apply-product-detail.png
-|   |-- 38-apply-brief-pdf.png
-|   |-- 39-apply-contract-upload.png
-|   |-- 40-apply-thankyou-accepted.png
-|   |-- campaign.png
-|   |-- campaings.png
-|   |-- card 1.png
-|   |-- card 2.png
-|   |-- card 3.png
-|   |-- file.svg
-|   |-- globe.svg
-|   |-- hero.png
-|   |-- logo blue gradient.svg
-|   |-- logo.svg
-|   |-- next.svg
-|   |-- no-phones.png
-|   |-- paid.png
-|   |-- paid_with_gif.png
-|   |-- vercel.svg
-|   -- window.svg
-|-- scripts
-|-- supabase
-|   |-- .temp
-|   |   -- cli-latest
-|   |-- migrations
-|   |   |-- bootstrap
-|   |   |   |-- 001_helpers.sql
-|   |   |   |-- 002_platforms.sql
-|   |   |   |-- 010_brands.sql
-|   |   |   |-- 011_influencers.sql
-|   |   |   |-- 020_influencer_metrics.sql
-|   |   |   |-- 021_influencer_posts.sql
-|   |   |   |-- 030_brand_lists.sql
-|   |   |   |-- 040_campaigns.sql
-|   |   |   |-- 050_brand_products.sql
-|   |   |   |-- 090_storage_contracts.sql
-|   |   |   -- 999_seed.sql
-|   |   |-- 20260424120001_seed_influencers_dz.sql
-|   |   -- new_schema.sql
-|   |-- old_seed
-|   |   |-- brand.txt
-|   |   |-- brand_list_influencers.txt
-|   |   |-- brand_lists.txt
-|   |   |-- brand_products.txt
-|   |   |-- campaign_activity.txt
-|   |   |-- campaign_influencers.txt
-|   |   |-- campaign_products.xtx
-|   |   |-- campaigns.txt
-|   |   |-- influencer_platform_metrics.txt
-|   |   |-- influencer_postv.txt
-|   |   |-- influencers.txt
-|   |   |-- platforms.txt
-|   |   -- saved_influencers.txt
-|   |-- Seed
-|   |   |-- new_seed.sql
-|   |   |-- seed_metrics.sql
-|   |   |-- seed_posts_part_001.sql
-|   |   |-- seed_posts_part_002.sql
-|   |   |-- seed_posts_part_003.sql
-|   |   |-- seed_posts_part_004.sql
-|   |   |-- seed_posts_part_005.sql
-|   |   |-- seed_posts_part_006.sql
-|   |   |-- seed_posts_part_007.sql
-|   |   |-- seed_posts_part_008.sql
-|   |   |-- seed_posts_part_009.sql
-|   |   |-- seed_posts_part_010.sql
-|   |   -- seed_posts_part_011.sql
-|   |-- config.toml
-|   |-- rls.sql
-|   -- schema.sql
-|-- types
-|   |-- globals.d.ts
-|   -- supabase.ts
-|-- .env
-|-- .gitignore
-|-- components.json
-|-- eslint.config.mjs
-|-- middleware.ts
-|-- next-env.d.ts
-|-- next.config.ts
-|-- package.json
-|-- pnpm-lock.yaml
-|-- postcss.config.mjs
-|-- README.md
-|-- tsconfig.json
--- tsconfig.tsbuildinfo
-```
-
----
-
-## 9. Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- pnpm
-- A Supabase project (free tier works)
-- A Gmail account with App Password enabled
-
-### Installation
-
-```bash
-pnpm install
-pnpm dev
-```
-
----
-
-## 10. Environment Variables
-
-Create a `.env.local` file with:
+### Layer A: Next.js Frontend Application Setup
+
+#### 1. Prerequisites
+Ensure you have the following installed:
+*   **Node.js** (v18.x or higher)
+*   **pnpm** (preferred package manager)
+*   **Supabase Account** (with a database project initialized)
+
+#### 2. Environment Configuration
+Create a `.env.local` file in the root directory of the Next.js project:
 
 ```env
+# Application Base URL
 NEXT_PUBLIC_APP_URL=http://localhost:3000
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
-NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloud_name
-NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=your_upload_preset
+
+# Supabase Credentials (Retrieved from Settings -> API in Supabase Dashboard)
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+# Cloudinary Storage Settings (For contract uploads, logos, receipts, and briefs)
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=your_cloudinary_upload_preset
+
+# Admin Access Control
+# Comma-separated list of Supabase auth user UUIDs acting as finance supervisors/admin
+ADMIN_USER_IDS=8a7c2b3e-4d5f-6a7b-8c9d-0e1f2a3b4c5d
+
+# Localized Payment Details (Algerian Market)
+NEXT_PUBLIC_BARIDIMOB_RECEIVER_RIP=00799999002145678912
+NEXT_PUBLIC_APFLUENCE_RECEIVE_CCP="007 18492 003905672814 31"
 ```
+
+#### 3. Command Lines to Run
+Execute these commands in your terminal to start the development server:
+
+```bash
+# 1. Install project dependencies
+pnpm install
+
+# 2. Run Next.js and the asset optimizer concurrently
+pnpm dev
+```
+The application will run locally at [http://localhost:3000](http://localhost:3000).
 
 ---
 
-## 11. API Reference
+### Layer B: FastAPI Scraping & ML Engine Setup
 
-### Public Endpoints (No Authentication)
+#### 1. Prerequisites
+Ensure you have the following installed on the backend machine:
+*   **Python 3.10+**
+*   **pip** and **virtualenv**
 
-**GET `/api/apply/[token]`**  
-Fetches campaign and offer details for application form.
+#### 2. Environment Configuration
+Create a `.env` file in the root of the FastAPI backend directory:
 
-**POST `/api/apply/[token]`**  
-Submits influencer response.
+```env
+# Shared Supabase Database Connection Details
+DATABASE_URL=postgresql://postgres.your-project-id:your-db-password@aws-0-us-east-1.pooler.supabase.com:6543/postgres
+SUPABASE_URL=https://your-project-id.supabase.co
+SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
-**Example body**
-
-```json
-{
-  "action": "accept",
-  "selected_product_ids": ["product_uuid"],
-  "application_note": "Looking forward to this collaboration",
-  "counter_offer_amount": null,
-  "signed_contract_url": "https://storage.example.com/contracts/file.pdf"
-}
+# Social Scraping Auth Credentials (Required for Instagrapi / Playwright browser sessions)
+INSTAGRAM_USERNAME=your_scraping_bot_username
+INSTAGRAM_PASSWORD=your_scraping_bot_password
+TIKTOK_SESSION_ID=your_tiktok_session_cookie_id
 ```
 
-### Protected Endpoints (Brand Authentication Required)
+#### 3. Command Lines to Run
+Run the backend Python FastAPI server using these commands:
 
-**POST `/api/email/campaign`**  
-Sends bulk outreach emails to selected campaign influencers.
+```bash
+# 1. Create a Python virtual environment
+python -m venv venv
 
-**Example body**
+# 2. Activate the virtual environment
+# On Windows:
+.\venv\Scripts\activate
+# On macOS/Linux:
+source venv/bin/activate
 
-```json
-{
-  "campaignId": "campaign_uuid",
-  "emails": [
-    {
-      "to": "influencer@example.com",
-      "subject": "Collaboration opportunity",
-      "body": "<p>Hello {{first_name}}</p><p>{{application_link}}</p>",
-      "influencerId": "influencer_uuid",
-      "campaignInfluencerId": "campaign_influencer_uuid"
-    }
-  ]
-}
+# 3. Install Python dependencies
+pip install -r requirements.txt
+
+# 4. Install Playwright browser engines
+playwright install
+
+# 5. Start the FastAPI server using Uvicorn
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
-
-**POST `/api/set-role`**  
-Deprecated compatibility endpoint for role assignment.
+The API documentation will be interactive and accessible at [http://localhost:8000/docs](http://localhost:8000/docs).
 
 ---
 
-## Apfluence - Projet de Fin d'Études
+### Database Schema & Storage Setup (Supabase Console)
 
-Built with Next.js, Supabase, TypeScript and Tailwind CSS.
+1.  **Database Tables:** Create the following core relational tables in your Supabase project editor:
+    *   `brands` — Stores company details, Gmail SMTP data, and DZD balances.
+    *   `influencers` — Stores creator details, social handles, categories, rates, and cash balances.
+    *   `influencer_platform_metrics` — Caches followers, likes, comments, and engagement rates.
+    *   `influencer_posts` — Caches individual post records for side-panel preview cards.
+    *   `brand_lists` / `brand_list_influencers` — Handles custom organization lists.
+    *   `campaigns` / `campaign_products` — Campaign setup and product inventories.
+    *   `campaign_influencers` — Primary pipeline records managing candidate status and token auth keys.
+    *   `campaign_activity` — Operations log.
+2.  **Storage Buckets:** Create a public bucket named **`contracts`** to support document uploads. Enable read/write access.
+3.  **Gmail SMTP App Password:** Navigate to Google Account -> Security -> App Passwords to generate a 16-character App Password. Enter it under the Brand account settings to send bulk invitation templates.
+
+---
+
+## ⚡ What the Platform Does
+
+### For Brands
+*   **Influencer Vetting:** Deep search by `@handle`, `#niche`, platform, and location flag.
+*   **Profile Analytics:** Side-panel overview containing Authenticity scores, Engagement Rates (ER), cost per engagement, and post previews.
+*   **Live scan:** Initiate a live Playwright scraper to scan any public social account on the fly.
+*   **6-Step Campaign Wizard:** Choose campaign type (Paid flat fee or Product-Gifting), define rules, upload PDF briefs/contracts, build customized email templates with merge tags, and select target lists.
+*   **Outreach & Pipeline Tracking:** Send automated bulk emails via Gmail SMTP. A unique UUID magic link lets influencers sign, counter-offer, or decline without logging in.
+*   **Algerian payment rails:** Upload bank transfers/CCP receipts to fund the system wallet.
+
+### For Influencers
+*   **Marketplace Offers:** Browse campaigns, evaluate briefs, download contracts, and upload signed documents.
+*   **Secure Token Links:** Full participation in campaigns (offer response, shipping inputs, draft submission) via a token URL without requiring account registration.
+*   **Earnings & Withdrawals:** Track campaign payouts and request withdrawals to an Algerian CCP account.
+
+### For Platform Administrators
+*   **Financial Validation:** Review uploaded brand CCP/BaridiMob deposit receipts.
+*   **Payout Approval:** Authorize and validate milestone fund releases.
+*   **Withdrawal Processing:** Process and clear influencer withdrawal requests.
+
+---
+
+## 🤖 The AI/ML & Scraping Engine (PFE-M2)
+
+The intelligence layer is driven by the FastAPI service executing data-intensive operations:
+*   **Multi-Platform Scraping:** Browser-based automation (Playwright) dynamically extracts metrics across dynamic web views on Instagram, TikTok, YouTube, and Facebook.
+*   **Credibility Classification:** Combines metric ratios, suspicious-like patterns, and bio traits via an **XGBoost** model paired with heuristic logic to generate a credibility rating.
+*   **Multilingual NLP Sentiment & Spam Analysis:** Uses a fine-tuned **XLM-RoBERTa** model trained to recognize French, Arabic, and Algerian code-switched comments. Filter flags distinguish spam/organic comments and extract general sentiment.
+*   **Algeria-Tuned Niche Classification:** Lexical machine learning classifier that tags influencer categories into 15 distinct niches suited to localized content markets.
+*   **Brand-Influencer Matching (BIS):** Employs a dual-engine architecture. Computes matching scores prioritizing the Python ML recommendation engine; an application-level fallback ensures continuity if the engine goes offline.
+*   **Data Footprint:** Features training over ~15,000 labeled code-switched comments, a custom fraud detection suspect dataset, and a 90-profile validation corpus.
+
+---
+
+## 📂 Shipped Pages & Modules
+
+*   **Public Views:** Responsive landing page, role-specific authentication, verification screens, and public token-based apply/draft submission pages.
+*   **Brand Console:** Discovery index, smart lists, campaign wizard, outreach template editor, real-time collaboration pipeline table, settings, and wallet ledgers.
+*   **Influencer Console:** Home tab, offer filters, active campaign checklists, real-time brand communication chat, and withdrawal systems.
+*   **Admin Console:** Main operations ledger, deposit validation table, and CCP withdrawal queue checks.
+
+---
+
+## 📖 Dissertation Chapter 5: Implementation and Realization
+
+### 1. Introduction
+
+This chapter describes how our platform was built and the technologies chosen for each layer of the system. Chapter 4 defined the specifications; here we focus on realization: our application, the scraping and analysis engine, and their integration through our database (BDD).
+
+The implementation covers the following functional areas:
+*   User authentication and role-based access (brand, influencer, platform administrator)
+*   Influencer discovery, lists, and live profile scanning (scraping and analysis engine)
+*   Campaign wizard, marketplace, pipeline management, and Brand-Influencer Score (BIS) matching
+*   Email outreach via brand-configured Gmail SMTP
+*   In-app campaign chat and secure token-based application and draft links
+*   Localized wallet operations (CCP, BaridiMob, DZD) with administrator validation
+*   Multilingual ML scoring and credibility analysis (scraping and analysis engine)
+
+We begin with the general architecture, then present the technology stack, and conclude with an overview of the principal user interfaces that implement the requirements defined in the previous chapter.
+
+---
+
+### 2. General Architecture
+
+The architecture of our platform follows a **modular two-layer design** rather than a full microservices mesh. **Our application** handles all product workflows—authentication, discovery, campaigns, chat, email configuration, and wallet management—through its internal service layer and database access components. The **scraping and analysis engine** handles data-intensive operations: multi-platform scraping, ML scoring, and BIS matching. Both layers share our database, which keeps influencer profiles, campaign state, and financial records consistent across the system.
+
+```mermaid
+graph TD
+    classDef main fill:#f9f9fb,stroke:#1a1aff,stroke-width:2px;
+    classDef service fill:#eeeeff,stroke:#6666ff,stroke-dasharray: 5 5;
+    classDef db fill:#e8f4fd,stroke:#3b82f6,stroke-width:2px;
+
+    %% Presentation Layer
+    subgraph Presentation ["Presentation Layer (Role Dashboards)"]
+        Brand["Brand Dashboard"]
+        Creator["Influencer Portal"]
+        Admin["Admin Dashboard"]
+        Public["Public Apply Page"]
+    end
+    
+    %% Application Service Layer
+    subgraph ServiceLayer ["Application Service Layer (Next.js Node Server)"]
+        Auth["Auth & Guard Services"]:::service
+        Biz["Business Logic Core"]:::service
+        Mail["Mailing Service (Gmail SMTP)"]:::service
+        ChatSvc["Campaign Chat Service"]:::service
+        Wallet["Payment & Wallet Component"]:::service
+        DAL["Data Access Layer (DAL)"]:::service
+    end
+
+    %% Scraping & ML Layer
+    subgraph MLService ["Machine Learning & Collection Engine (Python Server)"]
+        DataColl["Data Collection Service (Playwright/Instagrapi)"]:::service
+        MLEngine["ML Service (XGBoost/Scikit-learn)"]:::service
+    end
+    
+    %% Shared DB
+    BDD[("PostgreSQL Database & Storage (Supabase)")]:::db
+
+    %% Connections
+    Brand --> Auth
+    Creator --> Auth
+    Admin --> Auth
+    Public --> Auth
+
+    Auth --> Biz
+    Biz --> Mail
+    Biz --> ChatSvc
+    Biz --> Wallet
+    Wallet --> DAL
+    Biz --> DAL
+    
+    MLEngine --> BDD
+    DataColl --> BDD
+    DAL --> BDD
+```
+
+*   **Presentation layer:** The user-facing layer serves three roles—brand, influencer, and platform administrator—through role-specific dashboards. Brands use discovery (filters, lists, profile side panels), the six-step campaign wizard, marketplace management, email outreach configuration, campaign pipeline views, and wallet deposit flows. Influencers browse the marketplace, manage offers, submit drafts, use campaign chat, and request CCP withdrawals. The administrator validates deposits and processes withdrawal requests. Secure token-based invitation links allow unregistered creators to enter the pipeline without prior account creation.
+*   **Application service layer:** Server-side services act as the integration boundary between the user interface and backend resources. They query our database, invoke the scraping and analysis engine for scraping and matching, send emails through brand-configured Gmail SMTP, and enforce role-based access. Each feature module exposes dedicated services while sharing common authentication controls.
+*   **Authentication module:** User identity is managed through our authentication module with email verification for brands, session management, and role-based access policies that restrict data access by user type. Authentication is a cross-cutting concern applied at the service and database policy layers.
+*   **Business Logic Component:** The BusinessLogic component represents the operational core of the platform. It is responsible for coordinating the main business processes, including campaign management, influencer interactions, payment processing, contract handling, and other activities related to the influencer marketing workflow. Centralizing these processes within a dedicated component separates business rules from infrastructure and supporting services.
+*   **Machine Learning Service (scraping and analysis engine):** The scraping and analysis engine provides the intelligent capabilities of the platform. It is separate from our application but shares the same database. Its responsibilities include multi-platform scraping (Instagram, TikTok, YouTube, Facebook), computation of engagement, credibility, niche, and global scores, multilingual sentiment and spam analysis (French, Arabic, and Algerian code-switched content), and Brand-Influencer Score (BIS) matching.
+    
+    Brands access this layer through the profile scan function, which triggers live analysis of any public profile, and through the campaign wizard's AI recommender. Matching uses a **dual-engine design**: the analysis engine is preferred when available; an application-layer fallback in our application ensures recommendations continue if the ML service is offline.
+*   **Communication Services:** Communication is handled through two channels. The **Mailing Service** sends campaign invitations and notifications through each brand's own Gmail SMTP configuration, supporting bulk outreach with merge fields and reusable templates. The **Campaign Chat Service** provides in-app real-time messaging between brands and accepted creators, complementing email for day-to-day coordination.
+*   **Payment and Wallet Component:** Financial operations are adapted to the Algerian market. Brands deposit funds via CCP or BaridiMob and upload receipts; the platform administrator validates deposits and credits the brand wallet. Brands pay influencers from their wallet upon campaign milestones, and influencers request CCP withdrawals validated by the administrator. Amounts are handled in DZD throughout the application.
+*   **Data Access Layer:** The DataAccess component serves as the intermediary layer between the platform's services and its storage infrastructure. Centralizing data access through database access components and server-side services maintains a clear separation between business processes and data management.
+*   **Database and Storage:** Structured data—users, influencer profiles, campaigns, applications, chat messages, wallet transactions—is stored in our database with role-based access control. File uploads (briefs, contracts, receipts, draft media) use our file storage service (Supabase/Cloudinary).
+
+---
+
+### 3. Capabilities by Role & Deployed System Architecture
+
+The implementation directly addresses the problems formalized in the design phase. Table 5.1 summarizes what each role can do in the deployed system and which problem each capability solves.
+
+#### Table 5.1: Role capabilities and problems solved in implementation
+
+| Role | What the user can do | Problem solved |
+| :--- | :--- | :--- |
+| **Brand** | Search influencers by platform, followers, engagement; use `@` / `#` search; build lists; trigger live profile scans; launch campaigns via wizard; invite in bulk via Gmail SMTP; publish to marketplace; review applications; negotiate counter-offers; track pipeline stages; chat with accepted creators; fund wallet via CCP/BaridiMob. | Replaces manual directory browsing, unverified metrics, and fragmented outreach with scraped data, BIS recommendations, and a unified campaign workflow. |
+| **Influencer** | Browse marketplace; apply to campaigns (or via secure token link); accept/decline/counter-offer invitations; download briefs; submit drafts (authenticated or via secure token link); track collaboration status; use campaign chat; view earnings; request CCP withdrawal. | Enables participation without forcing every creator through full registration first; centralizes collaboration status. |
+| **Platform Administrator** | Validate brand deposit receipts; credit brand wallets; approve campaign payouts to influencer wallets; process and mark CCP withdrawals as sent. | Provides a locally adapted payment rail unavailable on international card-based platforms. |
+
+**Problems explicitly not solved in this implementation** include ROI analytics dashboards, predictive campaign forecasting, automated email follow-ups, lookalike discovery, escrow payments, UGC rights libraries, and multi-user brand team administration. Stating these boundaries keeps the implementation scope aligned with the actual codebase.
+
+---
+
+### 4. Technology Stack
+
+#### Frontend Technologies
+*   **Next.js (App Router):** Chosen for the frontend of our platform. Its routing system simplifies page management and page transition routing. It integrates with React and TypeScript, making it easy to build reusable components, use server-side rendering (SSR), and write server actions.
+*   **TypeScript:** Used on the frontend to allow static typing, which detects data-exchange structure issues before code execution and helps maintain type safety across the database and frontend components.
+*   **Tailwind CSS:** A utility-first CSS framework used to build pages and style interface components directly inside JSX files without maintaining large CSS files.
+*   **Shadcn/UI:** A collection of accessible, customizable components built with React and Tailwind CSS that maintains consistent component patterns (buttons, inputs, dialogs, dropdowns) across pages.
+
+#### Backend & Database Technologies
+*   **RESTful API:** Facilitates structured, stateless communication between the Next.js frontend, API endpoints, and database handlers.
+*   **Python:** The core language for the backend scraping and analysis engine, coordinating API requests and executing machine learning tasks.
+*   **SQLAlchemy:** Follows the Object-Relational Mapping (ORM) approach, representing database tables as Python classes to organize the Python backend data layer.
+*   **PostgreSQL:** Relational database management system storing user accounts, profiles, campaigns, and transaction ledgers.
+*   **Supabase:** Provides PostgreSQL hosting, built-in email/credentials authentication, public/private file storage, and real-time listeners.
+
+#### Machine Learning & Scraping Technologies
+*   **XGBoost:** Decision tree machine learning algorithm used to estimate influencer credibility scores by combining metrics such as engagement rates, posting activity, and audience authenticity.
+*   **Scikit-learn:** Python machine learning library supporting dataset preparation, cross-validation, and performance evaluation.
+*   **Pandas & NumPy:** Core data structures and numerical utilities to clean, transform, and evaluate data before engine processing.
+*   **Playwright:** An open-source browser automation framework to retrieve dynamically loaded social metrics from platform web views.
+*   **Instagrapi:** Python library wrapper to fetch Instagram profile records, post stats, and metrics.
+
+#### Deployment and Version Control
+*   **GitHub:** Version control, collaboration workflow, and branch organization.
+*   **Vercel:** Hosting and cloud deployment platform optimized for Next.js app builds.
+
+---
+
+### 5. Interface Design & Deployed Workflow Walkthrough
+
+This section presents the primary user interfaces developed for our platform, displaying how brands and creators conduct authentication, discovery, campaigns, outreach, and payments.
+
+#### 5.1 Landing Page
+The landing page serves as the entry point of the platform, detailing core value propositions, features, and call-to-actions for brands and creators.
+
+![Our Platform Landing Page](screenshots/Screenshot%202026-06-10%20120425.png)
+
+---
+
+#### 5.2 Authentication and Verification
+The authentication layer secures dashboards using role-based redirection logic. Brands and influencers register through separate paths.
+
+##### Brand Registration
+Companies submit their name, email, website, and password. A confirmation page prompts the input of a one-time verification code.
+
+![Brand Registration Interface](screenshots/Screenshot%202026-06-10%20124121.png)
+
+##### Verification Code
+A secure verification code is sent via email to confirm the brand's identity before account activation.
+
+![Verification Code Interface](screenshots/Screenshot%202026-06-10%20141934.png)
+
+##### Brand Sign-in
+Already registered brands input their credentials to access the main brand dashboard.
+
+![Brand Sign-In Page](screenshots/Screenshot%202026-06-10%20123027.png)
+
+---
+
+#### 5.3 Brand Dashboard & Discovery
+Once authenticated, brand users enter the main dashboard, which hosts the discovery interfaces, token search tools, and list managers.
+
+##### Dashboard Overview
+Displays campaign metrics, wallet status, active creators, and overall performance updates.
+
+![Brand Dashboard](screenshots/Screenshot%202026-06-10%20142340.png)
+
+##### Influencer Discovery
+Features a multi-token search bar supporting `@handle` for username searches, `#niche` for specific categorization, and plain text search terms. Influencer cards summarize key metrics.
+
+![Influencer Discovery](screenshots/Screenshot%202026-06-10%20143016.png)
+
+---
+
+#### 5.4 Influencer Profile Evaluation
+Clicking an influencer opens a detailed slide-over panel displaying verified cross-platform metrics, recent posts, estimated pricing ranges, and audience insights.
+
+##### Instagram Analytics
+Shows specific Instagram indicators: engagement rate, average likes, average comments, cost per engagement (CPE), and recent posts.
+
+![View Instagram Influencer Information](screenshots/Screenshot%202026-06-10%20143901.png)
+
+##### TikTok Analytics
+Details TikTok views, shares, comments, average engagement, and platform video links.
+
+![View TikTok Influencer Information](screenshots/Screenshot%202026-06-10%20144217.png)
+
+##### YouTube Analytics
+Presents YouTube subscriber counts, video views, and video cost-per-view (CPV) configurations.
+
+![View YouTube Influencer Information](screenshots/Screenshot%202026-06-10%20144447.png)
+
+---
+
+#### 5.5 Campaign Creation Wizard
+Brands create campaigns using a step-by-step wizard.
+
+##### Step 1: Campaign Type
+Select between a **Paid** campaign (monetary compensation) and a **Paid with Product** campaign (product-gifting model).
+
+![Campaign Type Selection](screenshots/Screenshot%202026-06-10%20155031.png)
+
+##### Step 2: Campaign Details (Part 1)
+Input campaign name, description, content tracking tags (hashtags and mentions), and upload campaign icon/brand assets.
+
+![Campaign Information - Part 1](screenshots/Screenshot%202026-06-10%20155310.png)
+
+##### Step 3: Campaign Details (Part 2)
+Configure timeline dates (campaign start, application close, draft submit, content live window) and specify target requirements.
+
+![Campaign Information - Part 2](screenshots/Screenshot%202026-06-10%20155433.png)
+
+##### Step 4: Compensation Setup
+For paid campaigns, set the flat fee amount. For product campaigns, configure product pricing and visibility.
+
+![Campaign Information - Part 3](screenshots/Screenshot%202026-06-10%20155528.png)
+
+##### Step 5: Product Catalog Setup
+For product campaigns, catalog items that creators can select from (naming, image URLs, valuation, description).
+
+![Campaign Product Catalog](screenshots/Screenshot%202026-06-10%20155947.png)
+
+##### Step 6: Brief & Contract Documentation
+Upload the campaign PDF brief and contract files that influencers review and sign during application.
+
+![Campaign Documentation - Brief & Contract](screenshots/Screenshot%202026-06-10%20163016.png)
+
+##### Step 7: Email Outreach Template
+Edit the email body template with merge fields (`{{influencer_name}}`, `{{application_link}}`) to personalize automated invites.
+
+![Campaign Outreach Email Template Editor](screenshots/Screenshot%202026-06-10%20163115.png)
+
+##### Step 8: Target List Selection
+Select a list of curated influencers from the brand's database to import directly into the campaign.
+
+![Select Target List for Campaign](screenshots/Screenshot%202026-06-10%20164219.png)
+
+---
+
+#### 5.6 Campaign Management & Pipelines
+The campaign pipeline view allows brands to monitor candidate stages, coordinate active offers, and manage collaboration milestones.
+
+##### Campaigns List View
+Displays active, draft, completed, and canceled campaigns, showing creator counts and response metrics.
+
+![Manage Campaigns & Pipeline](screenshots/Screenshot%202026-06-10%20164330.png)
+
+##### Empty Pipeline State
+The pipeline view for a newly initialized campaign, ready for candidate import.
+
+![Empty Pipeline State](screenshots/Screenshot%202026-06-10%20164355.png)
+
+##### Add Creators Modal
+Imports saved lists of creators to initiate campaign outreach.
+
+![Add Creators Modal](screenshots/Screenshot%202026-06-10%20164839.png)
+
+##### Active Collaborations Tracking
+Shows the full tabular campaign view, displaying creator responses, counter-offers, contracts, and deliverable status.
+
+![Active Collaborations Tracking](screenshots/Screenshot%202026-06-10%20172243.png)
+
+---
+
+#### 5.7 Campaign Communication (In-App Chat)
+Once a creator accepts a campaign offer, an in-app chat interface opens to allow direct message exchange, file sharing, and contract negotiation.
+
+![Real-time Brand-Influencer Chat](screenshots/Screenshot%202026-06-10%20203351.png)
+
+---
+
+#### 5.8 Localized Payments & Wallet Management
+Financial ledgers are adapted to the Algerian market. Brands upload CCP/BaridiMob deposit receipts to fund their wallet. Administrators validate these receipt images to credit brand accounts. Brands pay creators upon milestone completion, and influencers withdraw earnings via validated CCP bank rails.
+
+![Wallet & Payment Operations](screenshots/Screenshot%202026-06-10%20204928.png)
