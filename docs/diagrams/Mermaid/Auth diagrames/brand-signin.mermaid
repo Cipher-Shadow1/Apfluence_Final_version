@@ -1,0 +1,40 @@
+sequenceDiagram
+    actor User
+    participant Middleware
+    participant BrandSignInPage
+    participant BrandSignInForm
+    participant Clerk
+    participant BrandDashboard
+
+    User->>Middleware: Navigates to /sign-in/brand
+    
+    alt is user already authenticated?
+        alt role === "brand"
+            Middleware-->>User: redirect to /brand
+        else role === "influencer"
+            Middleware-->>User: redirect to /influencer
+        end
+    else no session
+        Middleware->>BrandSignInPage: render BrandSignInPage
+        BrandSignInPage->>BrandSignInForm: renders BrandSignInForm
+    end
+    
+    User->>BrandSignInForm: Fills: email, password
+    User->>BrandSignInForm: Clicks Sign in → handleSignIn fires
+    BrandSignInForm->>Clerk: signIn.create({ identifier: email, password })
+    
+    alt error
+        Clerk-->>BrandSignInForm: returns error
+        BrandSignInForm-->>User: toast.error shown, flow ends
+    else status === "complete"
+        Clerk-->>BrandSignInForm: returns complete
+        BrandSignInForm->>Clerk: setActive({ session: createdSessionId })
+        Note over BrandSignInForm, Clerk: Session active in browser
+        BrandSignInForm->>User: router.push("/brand")
+        
+        User->>Middleware: intercepts /brand request
+        Middleware->>Middleware: checks: userId exists ✓
+        Middleware->>BrandDashboard: forwards to layout
+        BrandDashboard->>BrandDashboard: layout checks: role === "brand" ✓
+        BrandDashboard-->>User: Access granted → dashboard renders
+    end

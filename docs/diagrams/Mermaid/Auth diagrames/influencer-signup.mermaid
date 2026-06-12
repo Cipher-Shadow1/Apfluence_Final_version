@@ -1,0 +1,53 @@
+sequenceDiagram
+    actor User as User (Browser)
+    participant InfluencerSignUpPage as InfluencerSignUpPage
+    participant InfluencerSignUpForm as InfluencerSignUpForm
+    participant Clerk as Clerk (Auth Service)
+    participant SetRoleAPI as SetRoleAPI (/api/set-role)
+    participant InfluencerDashboard as InfluencerDashboard (/influencer)
+
+    User->>InfluencerSignUpPage: Navigates to /sign-up/influencer
+    InfluencerSignUpPage->>InfluencerSignUpForm: Renders component
+    User->>InfluencerSignUpForm: Fills username, email, password, confirm password
+    User->>InfluencerSignUpForm: Clicks Sign up (fires handleSignUp)
+    InfluencerSignUpForm->>InfluencerSignUpForm: check canSubmit (passwords match, strength)
+    InfluencerSignUpForm->>Clerk: signUp.create({ emailAddress, password, firstName, lastName })
+    
+    alt Error creating account
+        Clerk-->>InfluencerSignUpForm: return error
+        InfluencerSignUpForm-->>User: toast.error shown (flow ends)
+    else Success creating account
+        Clerk-->>InfluencerSignUpForm: return success
+        InfluencerSignUpForm->>Clerk: signUp.prepareEmailAddressVerification({ strategy: "email_code" })
+        Clerk-->>User: Sends OTP email
+        InfluencerSignUpForm->>InfluencerSignUpForm: set isVerifying = true (renders OTP input)
+    end
+    
+    User->>InfluencerSignUpForm: Enters 6-digit code
+    User->>InfluencerSignUpForm: Submits (fires handleVerifyEmail)
+    InfluencerSignUpForm->>Clerk: signUp.attemptEmailAddressVerification({ code })
+    
+    alt Error verifying email
+        Clerk-->>InfluencerSignUpForm: return error
+        InfluencerSignUpForm-->>User: toast.error shown (flow ends)
+    else Status === "complete"
+        Clerk-->>InfluencerSignUpForm: return complete & createdSessionId
+        InfluencerSignUpForm->>Clerk: setActive({ session: createdSessionId })
+        Note over InfluencerSignUpForm, Clerk: setActive must fire before /api/set-role to ensure session is available in auth()
+        InfluencerSignUpForm->>SetRoleAPI: POST /api/set-role { role: "influencer" }
+        SetRoleAPI->>SetRoleAPI: auth() gets userId from active session
+        SetRoleAPI->>Clerk: clerkClient.users.getUser(userId)
+        Clerk-->>SetRoleAPI: return user
+
+        alt Role already set
+            SetRoleAPI-->>InfluencerSignUpForm: 409 Role already assigned
+        else No role set
+            SetRoleAPI->>Clerk: clerkClient.users.updateUserMetadata({ publicMetadata: { role: "influencer" }})
+            Clerk-->>SetRoleAPI: success
+            SetRoleAPI-->>InfluencerSignUpForm: { success: true, role: "influencer" }
+        end
+        InfluencerSignUpForm->>User: router.push("/auth/auth-callback?next=/influencer")
+        User->>InfluencerDashboard: Auth callback activates and redirects to /influencer
+        InfluencerDashboard->>InfluencerDashboard: layout checks session + role
+        InfluencerDashboard-->>User: Role === "influencer" -> access granted
+    end

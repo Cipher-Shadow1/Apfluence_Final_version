@@ -1,0 +1,53 @@
+sequenceDiagram
+    actor User as User (Browser)
+    participant BrandSignUpPage as BrandSignUpPage
+    participant BrandSignUpForm as BrandSignUpForm
+    participant Clerk as Clerk (Auth Service)
+    participant SetRoleAPI as SetRoleAPI (/api/set-role)
+    participant BrandDashboard as BrandDashboard (/brand)
+
+    User->>BrandSignUpPage: Navigates to /sign-up/brand
+    BrandSignUpPage->>BrandSignUpForm: Renders component
+    User->>BrandSignUpForm: Fills username, email, password, confirm password
+    User->>BrandSignUpForm: Clicks Sign up (fires handleSignUp)
+    BrandSignUpForm->>BrandSignUpForm: check canSubmit (passwords match, strength)
+    BrandSignUpForm->>Clerk: signUp.create({ emailAddress, password, firstName, lastName })
+    
+    alt Error creating account
+        Clerk-->>BrandSignUpForm: return error
+        BrandSignUpForm-->>User: toast.error shown (flow ends)
+    else Success creating account
+        Clerk-->>BrandSignUpForm: return success
+        BrandSignUpForm->>Clerk: signUp.prepareEmailAddressVerification({ strategy: "email_code" })
+        Clerk-->>User: Sends OTP email
+        BrandSignUpForm->>BrandSignUpForm: set isVerifying = true (renders OTP input)
+    end
+    
+    User->>BrandSignUpForm: Enters 6-digit code
+    User->>BrandSignUpForm: Submits (fires handleVerifyEmail)
+    BrandSignUpForm->>Clerk: signUp.attemptEmailAddressVerification({ code })
+    
+    alt Error verifying email
+        Clerk-->>BrandSignUpForm: return error
+        BrandSignUpForm-->>User: toast.error shown (flow ends)
+    else Status === "complete"
+        Clerk-->>BrandSignUpForm: return complete & createdSessionId
+        BrandSignUpForm->>Clerk: setActive({ session: createdSessionId })
+        Note over BrandSignUpForm, Clerk: setActive must fire before /api/set-role to ensure session is available in auth()
+        BrandSignUpForm->>SetRoleAPI: POST /api/set-role { role: "brand" }
+        SetRoleAPI->>SetRoleAPI: auth() gets userId from active session
+        SetRoleAPI->>Clerk: clerkClient.users.getUser(userId)
+        Clerk-->>SetRoleAPI: return user
+
+        alt Role already set
+            SetRoleAPI-->>BrandSignUpForm: 409 Role already assigned
+        else No role set
+            SetRoleAPI->>Clerk: clerkClient.users.updateUserMetadata({ publicMetadata: { role: "brand" }})
+            Clerk-->>SetRoleAPI: success
+            SetRoleAPI-->>BrandSignUpForm: { success: true, role: "brand" }
+        end
+        BrandSignUpForm->>User: router.push("/auth/auth-callback?next=/brand")
+        User->>BrandDashboard: Auth callback activates and redirects to /brand
+        BrandDashboard->>BrandDashboard: layout checks session + role
+        BrandDashboard-->>User: Role === "brand" -> access granted
+    end

@@ -1,0 +1,40 @@
+sequenceDiagram
+    actor User
+    participant Middleware
+    participant InfluencerSignInPage
+    participant InfluencerSignInForm
+    participant Clerk
+    participant InfluencerDashboard
+
+    User->>Middleware: Navigates to /sign-in/influencer
+    
+    alt is user already authenticated?
+        alt role === "influencer"
+            Middleware-->>User: redirect to /influencer
+        else role === "brand"
+            Middleware-->>User: redirect to /brand
+        end
+    else no session
+        Middleware->>InfluencerSignInPage: render InfluencerSignInPage
+        InfluencerSignInPage->>InfluencerSignInForm: renders InfluencerSignInForm
+    end
+    
+    User->>InfluencerSignInForm: Fills: email, password
+    User->>InfluencerSignInForm: Clicks Sign in → handleSignIn fires
+    InfluencerSignInForm->>Clerk: signIn.create({ identifier: email, password })
+    
+    alt error
+        Clerk-->>InfluencerSignInForm: returns error
+        InfluencerSignInForm-->>User: toast.error shown, flow ends
+    else status === "complete"
+        Clerk-->>InfluencerSignInForm: returns complete
+        InfluencerSignInForm->>Clerk: setActive({ session: createdSessionId })
+        Note over InfluencerSignInForm, Clerk: Session active in browser
+        InfluencerSignInForm->>User: router.push("/influencer")
+        
+        User->>Middleware: intercepts /influencer request
+        Middleware->>Middleware: checks: userId exists ✓
+        Middleware->>InfluencerDashboard: forwards to layout
+        InfluencerDashboard->>InfluencerDashboard: layout checks: role === "influencer" ✓
+        InfluencerDashboard-->>User: Access granted → dashboard renders
+    end

@@ -1,0 +1,56 @@
+sequenceDiagram
+    actor User
+
+    box Frontend
+    participant SignUpPage as /sign-up/influencer<br>Page & Form
+    participant AuthCallback as /auth/auth-callback<br>AuthCallbackClient
+    end
+
+    box Backend
+    participant Clerk as Clerk SDK<br>(Auth / Users)
+    participant SetRoleAPI as /api/set-role<br>route.ts
+    participant Layout as /influencer<br>Layout Guard
+    participant Middleware as Middleware
+    end
+
+    User->>SignUpPage: Enters Email & Password
+    SignUpPage->>Clerk: signUp.create({ emailAddress, password })
+    Clerk-->>SignUpPage: Returns unverified status
+
+    SignUpPage->>Clerk: signUp.prepareEmailAddressVerification()
+    Clerk-->>SignUpPage: Sent OTP
+
+    User->>SignUpPage: Enters OTP code
+    SignUpPage->>Clerk: signUp.attemptEmailAddressVerification({ code })
+    
+    alt Status Complete
+        Clerk-->>SignUpPage: Created Session ID
+        SignUpPage->>Clerk: setActive({ session: createdSessionId })
+        SignUpPage->>SetRoleAPI: fetch POST { role: "influencer" }
+        SetRoleAPI->>Clerk: clerkClient.users.updateUserMetadata(...)
+        Clerk-->>SetRoleAPI: Success
+        SetRoleAPI-->>SignUpPage: { success: true, role: "influencer" }
+        SignUpPage->>AuthCallback: router.push('/auth/auth-callback?next=/influencer')
+    else Session Exists Error (User stuck half-registered)
+        Clerk-->>SignUpPage: error: session_exists
+        SignUpPage->>SetRoleAPI: fetch POST { role: "influencer" } (Fix missing role)
+        SetRoleAPI-->>SignUpPage: Success
+        SignUpPage->>AuthCallback: router.push('/auth/auth-callback?next=/influencer')
+    end
+
+    AuthCallback->>Clerk: session.reload() (Force fetch new token)
+    AuthCallback->>Clerk: Server Action getAuthStatus() via currentUser()
+    Clerk-->>AuthCallback: { success: true }
+    AuthCallback->>Middleware: router.replace('/influencer')
+    
+    Middleware->>Clerk: auth()
+    Middleware->>Middleware: check path vs sessionClaims.publicMetadata.role
+    Middleware-->>Layout: Allows /influencer (route matched role)
+    
+    Layout->>Clerk: auth()
+    Layout->>Layout: Check role from sessionClaims
+    alt Role missing from JWT (Stale token race condition)
+        Layout->>Clerk: clerkClient.users.getUser(userId)
+        Clerk-->>Layout: user with live role
+    end
+    Layout-->>User: Renders Influencer Dashboard <Header />

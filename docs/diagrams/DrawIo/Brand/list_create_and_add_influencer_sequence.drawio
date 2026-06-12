@@ -1,0 +1,256 @@
+<mxfile host="app.diagrams.net" agent="Codex">
+  <diagram id="list-create-add" name="Create List + Add Influencer">
+    <mxGraphModel dx="595" dy="371" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="bg" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0f172a;strokeColor=#334155;" value="" vertex="1">
+          <mxGeometry height="1620" width="1820" x="40" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="title" parent="1" style="text;html=1;fontColor=#f8fafc;fontStyle=1;fontSize=15;align=center;" value="Create List + Add Influencer to List — Apfluence" vertex="1">
+          <mxGeometry height="30" width="700" x="500" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="p1" parent="1" style="rounded=1;arcSize=12;fillColor=#f97316;strokeColor=#ea580c;fontColor=#ffffff;fontStyle=1;fontSize=11;" value="Brand User (Browser)" vertex="1">
+          <mxGeometry height="44" width="180" x="80" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="p2" parent="1" style="rounded=1;arcSize=12;fillColor=#2563eb;strokeColor=#60a5fa;fontColor=#ffffff;fontStyle=1;fontSize=11;" value="Application" vertex="1">
+          <mxGeometry height="44" width="190" x="380" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" parent="1" style="rounded=1;arcSize=12;fillColor=#0369a1;strokeColor=#38bdf8;fontColor=#ffffff;fontStyle=1;fontSize=11;" value="lists.client.ts&#xa;(cache wrapper)" vertex="1">
+          <mxGeometry height="44" width="190" x="690" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="p4" parent="1" style="rounded=1;arcSize=12;fillColor=#7c3aed;strokeColor=#a78bfa;fontColor=#ffffff;fontStyle=1;fontSize=11;" value="Server Action" vertex="1">
+          <mxGeometry height="44" width="200" x="1010" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="p5" parent="1" style="rounded=1;arcSize=12;fillColor=#be185d;strokeColor=#f472b6;fontColor=#ffffff;fontStyle=1;fontSize=11;" value="Supabase DB" vertex="1">
+          <mxGeometry height="44" width="200" x="1380" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="lf1" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="170" y="160" as="sourcePoint" />
+            <mxPoint x="170" y="1620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lf2" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="475" y="160" as="sourcePoint" />
+            <mxPoint x="475" y="1620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lf3" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="785" y="160" as="sourcePoint" />
+            <mxPoint x="785" y="1620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lf4" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1110" y="160" as="sourcePoint" />
+            <mxPoint x="1110" y="1620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lf5" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1480" y="160" as="sourcePoint" />
+            <mxPoint x="1480" y="1620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sec_a" parent="1" style="text;html=1;fontColor=#22d3ee;fontSize=13;fontStyle=1;align=left;" value="PART A — Create a New List" vertex="1">
+          <mxGeometry height="24" width="300" x="80" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="m1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="&#xa;1. User clicks &quot;My Lists&quot; → clicks &quot;New List&quot; button">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="170" y="255" as="sourcePoint" />
+            <mxPoint x="475" y="255" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m2" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="&#xa;2. App shows CreateListModal (name input + color picker + live preview)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="475" y="295" as="sourcePoint" />
+            <mxPoint x="170" y="295" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m3" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="&#xa;3. User types list name, picks a color, clicks &quot;Create List&quot;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="170" y="340" as="sourcePoint" />
+            <mxPoint x="475" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="box_val_a" parent="1" style="rounded=1;fillColor=#1e293b;strokeColor=#475569;opacity=80;fontColor=#cbd5e1;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" value="Client validation (before sending)" vertex="1">
+          <mxGeometry height="100" width="460" x="100" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="mv1" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="&#xa;3A. If name is empty → App shows error: &quot;List name is required&quot;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="475" y="390" as="sourcePoint" />
+            <mxPoint x="170" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mv2" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="&#xa;3B. If name is over 100 characters → App shows error: &quot;Name too long&quot;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="475" y="425" as="sourcePoint" />
+            <mxPoint x="170" y="425" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m4" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="4. App calls createBrandList(authUserId, name, color)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="475" y="470" as="sourcePoint" />
+            <mxPoint x="785" y="470" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m5" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="5. Client wrapper calls server action createBrandListServer()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="785" y="510" as="sourcePoint" />
+            <mxPoint x="1110" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m6" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="6. Server looks up brand_id from brands table (using authUserId)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1110" y="550" as="sourcePoint" />
+            <mxPoint x="1480" y="550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m7" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="7. Server inserts new row into brand_lists table (name, color, brand_id)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1110" y="590" as="sourcePoint" />
+            <mxPoint x="1480" y="590" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="box_fail_a" parent="1" style="rounded=1;fillColor=#78350f;strokeColor=#f59e0b;opacity=18;fontColor=#fef3c7;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" value="alt: Creation failed (e.g. DB error)" vertex="1">
+          <mxGeometry height="55" width="800" x="100" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="m7b" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="7A. Server returns null → App shows error: &quot;Failed to create list&quot;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1110" y="647" as="sourcePoint" />
+            <mxPoint x="170" y="647" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m8" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="8. DB returns new list row → Server returns it to client wrapper">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1480" y="700" as="sourcePoint" />
+            <mxPoint x="785" y="700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m9" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="9. Client wrapper invalidates &#39;lists*&#39; cache → UI state is updated instantly">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="785" y="740" as="sourcePoint" />
+            <mxPoint x="475" y="740" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m10" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="10. Modal closes → new list appears in the dropdown immediately">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="475" y="780" as="sourcePoint" />
+            <mxPoint x="170" y="780" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sec_del" parent="1" style="text;html=1;fontColor=#f87171;fontSize=12;fontStyle=1;align=left;" value="PART A2 — Delete a List (hover trash icon)" vertex="1">
+          <mxGeometry height="22" width="400" x="80" y="820" as="geometry" />
+        </mxCell>
+        <mxCell id="md1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#f87171;fontColor=#fca5a5;labelBackgroundColor=none;fontSize=10;" value="11. User hovers a list → trash icon appears → user clicks trash">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="170" y="858" as="sourcePoint" />
+            <mxPoint x="475" y="858" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="md2" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#f87171;fontColor=#fca5a5;labelBackgroundColor=none;fontSize=10;" value="12. App calls deleteBrandList(authUserId, listId)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="475" y="898" as="sourcePoint" />
+            <mxPoint x="785" y="898" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="md3" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#f87171;fontColor=#fca5a5;labelBackgroundColor=none;fontSize=10;" value="13. Server deletes row from brand_lists table">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1110" y="938" as="sourcePoint" />
+            <mxPoint x="1480" y="938" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="md4" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#f87171;fontColor=#fca5a5;labelBackgroundColor=none;fontSize=10;" value="14. UI removes that list from the dropdown (no page reload needed)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="785" y="975" as="sourcePoint" />
+            <mxPoint x="170" y="975" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sec_b" parent="1" style="text;html=1;fontColor=#22d3ee;fontSize=13;fontStyle=1;align=left;" value="PART B — Add an Influencer to a List" vertex="1">
+          <mxGeometry height="24" width="400" x="80" y="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="mb1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="1. User clicks &quot;Save to List&quot; button on an influencer card">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="170" y="1060" as="sourcePoint" />
+            <mxPoint x="475" y="1060" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mb2" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="2. App loads all brand lists + checks which ones already contain this influencer">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="475" y="1100" as="sourcePoint" />
+            <mxPoint x="785" y="1100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mb3" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="3. Server reads brand_lists + brand_list_influencers tables">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1110" y="1140" as="sourcePoint" />
+            <mxPoint x="1480" y="1140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mb4" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="4. App shows dropdown with lists (already-added ones shown as checked)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="475" y="1180" as="sourcePoint" />
+            <mxPoint x="170" y="1180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="box_empty" parent="1" style="rounded=1;fillColor=#1e293b;strokeColor=#475569;opacity=80;fontColor=#cbd5e1;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" value="opt: No lists exist yet" vertex="1">
+          <mxGeometry height="50" width="500" x="100" y="1200" as="geometry" />
+        </mxCell>
+        <mxCell id="mb4b" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#94a3b8;fontColor=#cbd5e1;labelBackgroundColor=none;fontSize=10;" value="4B. Dropdown shows empty state → &quot;Create your first list&quot; button is shown">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="475" y="1225" as="sourcePoint" />
+            <mxPoint x="170" y="1225" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mb5" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="5. User clicks a list to toggle (add or remove influencer)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="170" y="1280" as="sourcePoint" />
+            <mxPoint x="475" y="1280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mb6" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="6. App calls addInfluencerToList(authUserId, listId, influencerId)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="475" y="1320" as="sourcePoint" />
+            <mxPoint x="785" y="1320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mb7" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="7. Server verifies that this list belongs to the brand (ownership check)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1110" y="1360" as="sourcePoint" />
+            <mxPoint x="1480" y="1360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mb8" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="8. Server inserts into brand_list_influencers table (listId + influencerId)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1110" y="1400" as="sourcePoint" />
+            <mxPoint x="1480" y="1400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="box_dup" parent="1" style="rounded=1;fillColor=#1e3a5f;strokeColor=#3b82f6;opacity=30;fontColor=#bfdbfe;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" value="alt: Influencer already in that list (duplicate error 23505)" vertex="1">
+          <mxGeometry height="55" width="1000" x="100" y="1430" as="geometry" />
+        </mxCell>
+        <mxCell id="mb8b" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#93c5fd;fontColor=#bfdbfe;labelBackgroundColor=none;fontSize=10;" value="8A. DB returns duplicate key error (23505) → Server treats it as success (no crash)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1480" y="1457" as="sourcePoint" />
+            <mxPoint x="785" y="1457" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mb9" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="9. Cache is invalidated → influencer count updates → list checkbox shows as checked">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="785" y="1520" as="sourcePoint" />
+            <mxPoint x="170" y="1520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mb10" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="10. User sees influencer is now saved to the selected list">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="475" y="1565" as="sourcePoint" />
+            <mxPoint x="170" y="1565" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

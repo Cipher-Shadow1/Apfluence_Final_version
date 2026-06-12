@@ -1,0 +1,227 @@
+<mxfile host="app.diagrams.net" agent="Codex">
+  <diagram id="campaign-create" name="Create Campaign (Wizard)">
+    <mxGraphModel dx="1300" dy="860" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2000" pageHeight="2000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Background -->
+        <mxCell id="bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0f172a;strokeColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="1920" height="1920" as="geometry" />
+        </mxCell>
+
+        <!-- Title -->
+        <mxCell id="title" value="Create Campaign — 6-Step Wizard — Apfluence" style="text;html=1;fontColor=#f8fafc;fontStyle=1;fontSize=15;align=center;" vertex="1" parent="1">
+          <mxGeometry x="550" y="52" width="700" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Participant headers -->
+        <mxCell id="p1" value="Brand User&#xa;(Browser)" style="rounded=1;arcSize=12;fillColor=#f97316;strokeColor=#ea580c;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="70" y="95" width="150" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="p2" value="Wizard UI&#xa;(CampaignWizardContext)" style="rounded=1;arcSize=12;fillColor=#2563eb;strokeColor=#60a5fa;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="320" y="95" width="200" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" value="Cloudinary&#xa;(images)" style="rounded=1;arcSize=12;fillColor=#0f766e;strokeColor=#2dd4bf;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="640" y="95" width="160" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="p4" value="Supabase Storage&#xa;(PDF contracts)" style="rounded=1;arcSize=12;fillColor=#16a34a;strokeColor=#4ade80;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="920" y="95" width="180" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="p5" value="Server Action&#xa;lib/queries/campaigns.ts" style="rounded=1;arcSize=12;fillColor=#7c3aed;strokeColor=#a78bfa;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="95" width="200" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="p6" value="Supabase DB&#xa;campaigns + products&#xa;+ campaign_influencers" style="rounded=1;arcSize=12;fillColor=#be185d;strokeColor=#f472b6;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1580" y="95" width="210" height="44" as="geometry" />
+        </mxCell>
+
+        <!-- Lifelines -->
+        <mxCell id="lf1" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="160" as="sourcePoint"/><mxPoint x="145" y="1920" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf2" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="160" as="sourcePoint"/><mxPoint x="420" y="1920" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf3" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="720" y="160" as="sourcePoint"/><mxPoint x="720" y="1920" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf4" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1010" y="160" as="sourcePoint"/><mxPoint x="1010" y="1920" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf5" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1330" y="160" as="sourcePoint"/><mxPoint x="1330" y="1920" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf6" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1685" y="160" as="sourcePoint"/><mxPoint x="1685" y="1920" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- ══════════════════════════════════════════════════════ -->
+        <!-- 6 WIZARD STEPS -->
+        <!-- ══════════════════════════════════════════════════════ -->
+        <mxCell id="sec_steps" value="WIZARD — 6 Steps the user fills in (one page per step)" style="text;html=1;fontColor=#22d3ee;fontSize=13;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="70" y="215" width="600" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- Auto-fill note -->
+        <mxCell id="box_auto" value="Note: When the wizard opens, the App reads the brand profile (country, language, currency, shipping notes) from Supabase and pre-fills matching fields automatically." style="rounded=1;fillColor=#1e293b;strokeColor=#475569;opacity=80;fontColor=#94a3b8;align=left;verticalAlign=middle;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="248" width="900" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Steps overview box -->
+        <mxCell id="box_steps" value="Step 1: Pick campaign type (Paid / Paid with Product)&#xa;Step 2: Campaign name, logo, emoji/color, tags, goal, KPI&#xa;Step 3: Payment amount OR product list (with images)&#xa;Step 4: Brief PDF, contract PDF, creator filters, dates&#xa;Step 5: Email subject + email body template + signature&#xa;Step 6: Pick a creator list (optional) → Finalize" style="rounded=1;fillColor=#1e3a5f;strokeColor=#3b82f6;opacity=30;fontColor=#bfdbfe;align=left;verticalAlign=top;spacingTop=8;spacingLeft=10;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="302" width="700" height="115" as="geometry" />
+        </mxCell>
+
+        <!-- Step validation -->
+        <mxCell id="box_stepval" value="Each step has a &apos;Next&apos; button that only enables when required fields are filled. Clicking Next navigates to /brand/campaigns/create/step-N" style="rounded=1;fillColor=#78350f;strokeColor=#f59e0b;opacity=18;fontColor=#fef3c7;align=left;verticalAlign=middle;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="430" width="750" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="m1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="1. User fills all 6 steps and clicks &quot;Create Campaign&quot; on step 6">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="490" as="sourcePoint"/><mxPoint x="420" y="490" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Final validation -->
+        <mxCell id="box_finalval" value="Final validation before uploads start" style="rounded=1;fillColor=#1e293b;strokeColor=#475569;opacity=80;fontColor=#cbd5e1;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="515" width="500" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mv1" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="1A. If campaign name is empty → error: &quot;Campaign name is required&quot;, stop">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="537" as="sourcePoint"/><mxPoint x="145" y="537" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="mv2" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="1B. If campaign type not selected → error: &quot;Please select a campaign type&quot;, stop">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="565" as="sourcePoint"/><mxPoint x="145" y="565" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- ══════ UPLOADS ══════ -->
+        <mxCell id="sec_uploads" value="UPLOADS — done before saving to database" style="text;html=1;fontColor=#22d3ee;fontSize=12;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="70" y="600" width="500" height="22" as="geometry" />
+        </mxCell>
+
+        <!-- Logo upload -->
+        <mxCell id="box_logo" value="opt: User uploaded a campaign logo image" style="rounded=1;fillColor=#7c2d12;strokeColor=#fb923c;opacity=20;fontColor=#fed7aa;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="633" width="800" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ul1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#fb923c;fontColor=#fed7aa;labelBackgroundColor=none;fontSize=10;" value="2. App uploads logo to Cloudinary (POST /v1_1/.../image/upload)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="658" as="sourcePoint"/><mxPoint x="720" y="658" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="ul2" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#fb923c;fontColor=#fed7aa;labelBackgroundColor=none;fontSize=10;" value="3. Cloudinary returns logo_url (secure_url)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="720" y="683" as="sourcePoint"/><mxPoint x="420" y="683" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Product images upload -->
+        <mxCell id="box_prod" value="opt: Campaign type is &apos;paid_with_product&apos; and products have image files" style="rounded=1;fillColor=#7c2d12;strokeColor=#fb923c;opacity=20;fontColor=#fed7aa;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="708" width="800" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="up1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#fb923c;fontColor=#fed7aa;labelBackgroundColor=none;fontSize=10;" value="4. App uploads each product image to Cloudinary (in parallel)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="733" as="sourcePoint"/><mxPoint x="720" y="733" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="up2" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#fb923c;fontColor=#fed7aa;labelBackgroundColor=none;fontSize=10;" value="5. Each product gets an image_url back from Cloudinary">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="720" y="758" as="sourcePoint"/><mxPoint x="420" y="758" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Brief PDF upload -->
+        <mxCell id="box_brief" value="opt: User uploaded a brief PDF (step 4)" style="rounded=1;fillColor=#14532d;strokeColor=#22c55e;opacity=15;fontColor=#dcfce7;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="783" width="1060" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ubr1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="6. App validates PDF (must be under 10MB) → uploads to Supabase Storage (bucket: contracts/briefs/)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="808" as="sourcePoint"/><mxPoint x="1010" y="808" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="ubr2" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="7. Supabase Storage returns public PDF URL (brief_pdf_url)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1010" y="838" as="sourcePoint"/><mxPoint x="420" y="838" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Contract PDF upload -->
+        <mxCell id="box_contract" value="opt: User uploaded a contract PDF (step 4)" style="rounded=1;fillColor=#14532d;strokeColor=#22c55e;opacity=15;fontColor=#dcfce7;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="858" width="1060" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="uco1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="8. App validates PDF → uploads to Supabase Storage (bucket: contracts/contracts/)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="883" as="sourcePoint"/><mxPoint x="1010" y="883" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="uco2" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="9. Supabase Storage returns public PDF URL (contract_pdf_url)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1010" y="913" as="sourcePoint"/><mxPoint x="420" y="913" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- ══════ CREATE CAMPAIGN IN DB ══════ -->
+        <mxCell id="sec_create" value="SAVE — all URLs collected, now create campaign in database" style="text;html=1;fontColor=#22d3ee;fontSize=12;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="70" y="948" width="600" height="22" as="geometry" />
+        </mxCell>
+
+        <mxCell id="mc1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="10. App calls createCampaign(payload) server action — sends all data at once">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="988" as="sourcePoint"/><mxPoint x="1330" y="988" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="mc2" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="11. Server finds brand_id by looking up brands table using authUserId">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1330" y="1028" as="sourcePoint"/><mxPoint x="1685" y="1028" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="mc3" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="12. Server inserts campaign row in campaigns table (status = draft)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1330" y="1068" as="sourcePoint"/><mxPoint x="1685" y="1068" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Products insert -->
+        <mxCell id="box_proddb" value="opt: Campaign type is &apos;paid_with_product&apos; → products exist" style="rounded=1;fillColor=#78350f;strokeColor=#f59e0b;opacity=20;fontColor=#fef3c7;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="1100" width="800" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mc4" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="13. Server inserts rows into campaign_products table (name, image_url, value in cents)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1330" y="1128" as="sourcePoint"/><mxPoint x="1685" y="1128" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Activity log -->
+        <mxCell id="mc5" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="14. Server writes a &apos;campaign_created&apos; event to the activity_log table">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1330" y="1183" as="sourcePoint"/><mxPoint x="1685" y="1183" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Campaign creation failed -->
+        <mxCell id="box_campfail" value="alt: Campaign creation failed (DB error / missing data)" style="rounded=1;fillColor=#78350f;strokeColor=#f59e0b;opacity=18;fontColor=#fef3c7;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="1213" width="1000" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="mc5b" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="14A. Server returns null → App shows error: &quot;Failed to create campaign. Try again.&quot;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1330" y="1240" as="sourcePoint"/><mxPoint x="145" y="1240" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Server returns campaign -->
+        <mxCell id="mc6" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="15. Server returns created campaign object (with campaign.id)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1330" y="1298" as="sourcePoint"/><mxPoint x="420" y="1298" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- ══════ ATTACH LIST INFLUENCERS ══════ -->
+        <mxCell id="box_list" value="opt: User selected a creator list in step 6 (selectedListId is set)" style="rounded=1;fillColor=#14532d;strokeColor=#22c55e;opacity=18;fontColor=#dcfce7;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="1330" width="1740" height="310" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ml1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="16. App calls addListInfluencersToCampaign(campaign.id, selectedListId)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="1372" as="sourcePoint"/><mxPoint x="1330" y="1372" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="ml2" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="17. Server reads all influencers in that list from brand_list_influencers table">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1330" y="1412" as="sourcePoint"/><mxPoint x="1685" y="1412" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="ml3" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="18. Server inserts each influencer into campaign_influencers table (status = pending)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1330" y="1452" as="sourcePoint"/><mxPoint x="1685" y="1452" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Duplicate inside list attach -->
+        <mxCell id="box_listdup" value="alt: An influencer is already in the campaign (duplicate key 23505) → server skips that one (no crash)" style="rounded=1;fillColor=#1e3a5f;strokeColor=#3b82f6;opacity=30;fontColor=#bfdbfe;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="120" y="1480" width="1680" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="ml3b" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#93c5fd;fontColor=#bfdbfe;labelBackgroundColor=none;fontSize=10;" value="18A. Duplicate error (23505) → skipped silently, rest of the list continues">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1685" y="1507" as="sourcePoint"/><mxPoint x="420" y="1507" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- List attach error -->
+        <mxCell id="box_listerr" value="alt: List attach fails (non-critical — campaign is already saved)" style="rounded=1;fillColor=#78350f;strokeColor=#f59e0b;opacity=15;fontColor=#fef3c7;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="120" y="1548" width="1080" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ml3c" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="18B. Error is logged to console but campaign is NOT cancelled (already created successfully)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1330" y="1573" as="sourcePoint"/><mxPoint x="420" y="1573" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- ══════ REDIRECT ══════ -->
+        <mxCell id="mf1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="19. App navigates to /brand/campaigns (campaign list page)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="1680" as="sourcePoint"/><mxPoint x="145" y="1680" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="mf2" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="20. New campaign is visible in the list with status: draft">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="1718" as="sourcePoint"/><mxPoint x="145" y="1718" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

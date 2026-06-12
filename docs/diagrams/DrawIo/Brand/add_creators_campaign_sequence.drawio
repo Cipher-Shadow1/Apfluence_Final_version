@@ -1,0 +1,179 @@
+<mxfile host="app.diagrams.net" agent="Codex">
+  <diagram id="add-creators-campaign" name="Add Creators to Live Campaign">
+    <mxGraphModel dx="1300" dy="860" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Background -->
+        <mxCell id="bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0f172a;strokeColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="1820" height="1820" as="geometry" />
+        </mxCell>
+
+        <!-- Title -->
+        <mxCell id="title" value="Add Creators to a Live Campaign — Apfluence" style="text;html=1;fontColor=#f8fafc;fontStyle=1;fontSize=15;align=center;" vertex="1" parent="1">
+          <mxGeometry x="450" y="52" width="900" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Participants -->
+        <mxCell id="p1" value="Brand User&#xa;(Browser)" style="rounded=1;arcSize=12;fillColor=#f97316;strokeColor=#ea580c;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="70" y="95" width="150" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="p2" value="Campaign Detail Page&#xa;(/brand/campaigns/[id])" style="rounded=1;arcSize=12;fillColor=#2563eb;strokeColor=#60a5fa;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="310" y="95" width="200" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" value="Add Creators Modal&#xa;(UI Component)" style="rounded=1;arcSize=12;fillColor=#1e293b;strokeColor=#475569;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="630" y="95" width="190" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="p4" value="Campaign Queries&#xa;(lib/queries/campaigns)" style="rounded=1;arcSize=12;fillColor=#7c3aed;strokeColor=#a78bfa;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="940" y="95" width="200" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="p5" value="Supabase DB&#xa;(campaign_influencers)" style="rounded=1;arcSize=12;fillColor=#be185d;strokeColor=#f472b6;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="95" width="200" height="44" as="geometry" />
+        </mxCell>
+
+        <!-- Lifelines -->
+        <mxCell id="lf1" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="160" as="sourcePoint"/><mxPoint x="145" y="1820" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf2" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="410" y="160" as="sourcePoint"/><mxPoint x="410" y="1820" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf3" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="725" y="160" as="sourcePoint"/><mxPoint x="725" y="1820" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf4" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1040" y="160" as="sourcePoint"/><mxPoint x="1040" y="1820" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf5" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1380" y="160" as="sourcePoint"/><mxPoint x="1380" y="1820" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- PART A: Campaign page loads -->
+        <mxCell id="sec1" value="PART A — Brand opens the campaign page" style="text;html=1;fontColor=#22d3ee;fontSize=12;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="70" y="218" width="600" height="22" as="geometry" />
+        </mxCell>
+
+        <mxCell id="m1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="1. Brand clicks on a campaign from the campaigns list">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="258" as="sourcePoint"/><mxPoint x="410" y="258" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m2" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="2. Page reads the campaign ID from the URL">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="410" y="298" as="sourcePoint"/><mxPoint x="410" y="328" as="targetPoint"/><Array as="points"><mxPoint x="440" y="298"/><mxPoint x="440" y="328"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="m3" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="3. Page fetches the campaign data using that ID (name, goal, budget, dates, language, target countries)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="410" y="360" as="sourcePoint"/><mxPoint x="1040" y="360" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m4" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="4. Database returns campaign + all influencers already in it (with name, avatar, status, offer amount)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1040" y="400" as="sourcePoint"/><mxPoint x="1380" y="400" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m5" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="5. Page shows: pipeline stage tracker, influencer table, toolbar with &quot;Add creators&quot; button. Also loads brand name separately for the email panel.">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="410" y="440" as="sourcePoint"/><mxPoint x="145" y="440" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- PART B: Opening the modal -->
+        <mxCell id="sec2" value="PART B — Brand opens the Add Creators modal" style="text;html=1;fontColor=#22d3ee;fontSize=12;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="70" y="488" width="600" height="22" as="geometry" />
+        </mxCell>
+
+        <mxCell id="m6" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="6. Brand clicks the &quot;Add creators&quot; button (top-right of the toolbar)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="526" as="sourcePoint"/><mxPoint x="410" y="526" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m7" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="7. Modal opens with a fade + scale animation">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="410" y="566" as="sourcePoint"/><mxPoint x="725" y="566" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m8" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="8. Modal reads Brand's user ID from the active session">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="725" y="606" as="sourcePoint"/><mxPoint x="1380" y="606" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m9" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="9. Modal fetches all the brand's saved lists (each with a name, color dot, and influencer count)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="725" y="646" as="sourcePoint"/><mxPoint x="1380" y="646" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- alt: no lists -->
+        <mxCell id="box_nolist" value="alt: Brand has no lists yet" style="rounded=1;fillColor=#78350f;strokeColor=#f59e0b;opacity=18;fontColor=#fef3c7;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="678" width="1000" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="mn1" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="9A. Modal shows an empty state: &quot;No lists yet — Create lists in Discovery first, then come back&quot;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="725" y="710" as="sourcePoint"/><mxPoint x="145" y="710" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <mxCell id="m10" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="10. Modal shows all lists — each row has a color dot, list name, and how many influencers are in it">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="725" y="780" as="sourcePoint"/><mxPoint x="145" y="780" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- PART C: Adding a list -->
+        <mxCell id="sec3" value="PART C — Brand picks a list and adds it to the campaign" style="text;html=1;fontColor=#22d3ee;fontSize=12;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="70" y="828" width="700" height="22" as="geometry" />
+        </mxCell>
+
+        <mxCell id="m11" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="11. Brand clicks a list row">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="868" as="sourcePoint"/><mxPoint x="725" y="868" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m12" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="12. List row shows a loading spinner — button is disabled while saving">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="725" y="908" as="sourcePoint"/><mxPoint x="725" y="938" as="targetPoint"/><Array as="points"><mxPoint x="755" y="908"/><mxPoint x="755" y="938"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="m13" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="13. Modal calls addListInfluencersToCampaign(campaignId, listId)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="725" y="968" as="sourcePoint"/><mxPoint x="1040" y="968" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- DB loop -->
+        <mxCell id="box_loop" value="For every influencer in the selected list:" style="rounded=1;fillColor=#1e3a5f;strokeColor=#3b82f6;opacity=20;fontColor=#bfdbfe;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="960" y="1000" width="750" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="ml1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#bfdbfe;fontColor=#bfdbfe;labelBackgroundColor=none;fontSize=10;" value="14. Check if influencer is already in the campaign (in campaign_influencers table)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1040" y="1030" as="sourcePoint"/><mxPoint x="1380" y="1030" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="ml2" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#bfdbfe;fontColor=#bfdbfe;labelBackgroundColor=none;fontSize=10;" value="15. If NOT already in campaign → insert with status &quot;pending&quot; (ready to invite)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1040" y="1070" as="sourcePoint"/><mxPoint x="1380" y="1070" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="ml3" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#bfdbfe;fontColor=#bfdbfe;labelBackgroundColor=none;fontSize=10;" value="16. If ALREADY in campaign → skip (no duplicates created)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1380" y="1110" as="sourcePoint"/><mxPoint x="1040" y="1110" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <mxCell id="m14" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="17. Database returns result: how many were added and how many were skipped">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1040" y="1165" as="sourcePoint"/><mxPoint x="725" y="1165" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Result banner -->
+        <mxCell id="m15" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="18. Green banner appears at top of modal: &quot;Added 5 creators (2 already in campaign)&quot;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="725" y="1205" as="sourcePoint"/><mxPoint x="145" y="1205" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m16" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="19. That list row turns green with a checkmark + &quot;Added&quot; label — it cannot be clicked again">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="725" y="1245" as="sourcePoint"/><mxPoint x="145" y="1245" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m17" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="20. Brand can repeat and pick more lists if needed (other lists are still clickable)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="1285" as="sourcePoint"/><mxPoint x="725" y="1285" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- PART D: Done and refresh -->
+        <mxCell id="sec4" value="PART D — Brand closes the modal and campaign refreshes" style="text;html=1;fontColor=#22d3ee;fontSize=12;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="70" y="1333" width="700" height="22" as="geometry" />
+        </mxCell>
+
+        <mxCell id="m18" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="21. Brand clicks the &quot;Done&quot; button (or clicks outside the modal)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="1373" as="sourcePoint"/><mxPoint x="725" y="1373" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m19" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="22. Modal closes with animation">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="725" y="1413" as="sourcePoint"/><mxPoint x="410" y="1413" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m20" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="23. Campaign page immediately re-fetches fresh campaign data from the database">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="410" y="1453" as="sourcePoint"/><mxPoint x="1040" y="1453" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m21" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="24. Database returns updated campaign with newly added influencers included">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1040" y="1493" as="sourcePoint"/><mxPoint x="1380" y="1493" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m22" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="25. Campaign table updates — new influencers appear with status &quot;Ready to invite&quot; and pipeline counts refresh">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="410" y="1533" as="sourcePoint"/><mxPoint x="145" y="1533" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Note -->
+        <mxCell id="note1" value="Pipeline stages track influencer progress: Form Sent → Accepted → Shipped → Drafted → Published → Paid." style="rounded=1;fillColor=#1e293b;strokeColor=#475569;opacity=80;fontColor=#94a3b8;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="1610" width="900" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="note2" value="The same modal also works during Campaign Creation (Wizard mode): instead of adding to an existing campaign, it just picks a list ID to attach to the draft campaign." style="rounded=1;fillColor=#1e293b;strokeColor=#475569;opacity=80;fontColor=#94a3b8;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="1668" width="1300" height="44" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

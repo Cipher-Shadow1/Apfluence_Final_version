@@ -1,0 +1,216 @@
+<mxfile host="app.diagrams.net" agent="Codex">
+  <diagram id="influencer-apply" name="Influencer Application Flow">
+    <mxGraphModel dx="1300" dy="860" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0f172a;strokeColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="1820" height="1820" as="geometry" />
+        </mxCell>
+
+        <mxCell id="title" value="Influencer Application Flow (/apply/[token]) — Apfluence" style="text;html=1;fontColor=#f8fafc;fontStyle=1;fontSize=15;align=center;" vertex="1" parent="1">
+          <mxGeometry x="450" y="52" width="800" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Participants -->
+        <mxCell id="p1" value="Influencer&#xa;(Browser)" style="rounded=1;arcSize=12;fillColor=#f97316;strokeColor=#ea580c;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="70" y="95" width="150" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="p2" value="Apply Page&#xa;(/apply/[token])" style="rounded=1;arcSize=12;fillColor=#2563eb;strokeColor=#60a5fa;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="330" y="95" width="180" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" value="API Route&#xa;(/api/apply/[token])" style="rounded=1;arcSize=12;fillColor=#7c3aed;strokeColor=#a78bfa;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="650" y="95" width="180" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="p4" value="Supabase Storage&#xa;(contracts bucket)" style="rounded=1;arcSize=12;fillColor=#16a34a;strokeColor=#4ade80;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="990" y="95" width="190" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="p5" value="Supabase DB&#xa;(campaign_influencers)" style="rounded=1;arcSize=12;fillColor=#be185d;strokeColor=#f472b6;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="95" width="200" height="44" as="geometry" />
+        </mxCell>
+
+        <!-- Lifelines -->
+        <mxCell id="lf1" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="160" as="sourcePoint"/><mxPoint x="145" y="1820" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf2" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="160" as="sourcePoint"/><mxPoint x="420" y="1820" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf3" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="740" y="160" as="sourcePoint"/><mxPoint x="740" y="1820" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf4" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1085" y="160" as="sourcePoint"/><mxPoint x="1085" y="1820" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf5" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1440" y="160" as="sourcePoint"/><mxPoint x="1440" y="1820" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- ── LOAD PAGE ── -->
+        <mxCell id="sec1" value="STEP 1 — Page loads and fetches the offer" style="text;html=1;fontColor=#22d3ee;fontSize=12;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="70" y="218" width="500" height="22" as="geometry" />
+        </mxCell>
+
+        <mxCell id="m1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="1. Influencer opens invitation link: /apply/[token]">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="255" as="sourcePoint"/><mxPoint x="420" y="255" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m2" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="2. Page calls GET /api/apply/[token]">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="295" as="sourcePoint"/><mxPoint x="740" y="295" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m3" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="3. API looks up campaign, influencer, brand, products by token">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="740" y="335" as="sourcePoint"/><mxPoint x="1440" y="335" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Token invalid -->
+        <mxCell id="box_inv" value="alt: Token is invalid or expired" style="rounded=1;fillColor=#78350f;strokeColor=#f59e0b;opacity=18;fontColor=#fef3c7;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="360" width="900" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="m3b" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="3A. API returns error → Page shows &quot;Link not found or expired&quot; screen">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="740" y="385" as="sourcePoint"/><mxPoint x="145" y="385" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Already responded -->
+        <mxCell id="box_already" value="alt: Influencer already responded before" style="rounded=1;fillColor=#1e3a5f;strokeColor=#3b82f6;opacity=30;fontColor=#bfdbfe;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="420" width="900" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="m3c" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#93c5fd;fontColor=#bfdbfe;labelBackgroundColor=none;fontSize=10;" value="3B. API returns already_responded=true → Page shows &quot;Thank you&quot; confirmation screen">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="740" y="445" as="sourcePoint"/><mxPoint x="145" y="445" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Success load -->
+        <mxCell id="m4" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="4. API returns campaign data (name, type, flat_amount, products, brief_url, contract_url)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="740" y="490" as="sourcePoint"/><mxPoint x="420" y="490" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m5" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="5. Page shows offer: influencer name, brand name, payment, products, brief PDF, contract PDF">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="530" as="sourcePoint"/><mxPoint x="145" y="530" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- ── INFLUENCER ACTIONS ── -->
+        <mxCell id="sec2" value="STEP 2 — Influencer fills in their response" style="text;html=1;fontColor=#22d3ee;fontSize=12;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="70" y="565" width="500" height="22" as="geometry" />
+        </mxCell>
+
+        <!-- Product selection -->
+        <mxCell id="box_prod" value="opt: Campaign type is &apos;paid_with_product&apos; — influencer must pick products" style="rounded=1;fillColor=#7c2d12;strokeColor=#fb923c;opacity=20;fontColor=#fed7aa;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="595" width="800" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="mp1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#fb923c;fontColor=#fed7aa;labelBackgroundColor=none;fontSize=10;" value="6. Influencer clicks &quot;Add product&quot; → ProductSelectionModal opens">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="625" as="sourcePoint"/><mxPoint x="420" y="625" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="mp2" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#fb923c;fontColor=#fed7aa;labelBackgroundColor=none;fontSize=10;" value="7. Influencer selects products (max count + max budget enforced by app)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="660" as="sourcePoint"/><mxPoint x="420" y="660" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="mp3" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#fb923c;fontColor=#fed7aa;labelBackgroundColor=none;fontSize=10;" value="8. Selected products shown in list with remove / view detail buttons">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="695" as="sourcePoint"/><mxPoint x="145" y="695" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Counter offer -->
+        <mxCell id="box_counter" value="opt: Influencer wants to make a counter-offer (paid campaign only)" style="rounded=1;fillColor=#1e293b;strokeColor=#475569;opacity=80;fontColor=#cbd5e1;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="720" width="700" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="mco1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#94a3b8;fontColor=#cbd5e1;labelBackgroundColor=none;fontSize=10;" value="9. Influencer clicks &quot;Make a counter-offer&quot; → input field appears">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="745" as="sourcePoint"/><mxPoint x="420" y="745" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="mco2" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#94a3b8;fontColor=#cbd5e1;labelBackgroundColor=none;fontSize=10;" value="10. Influencer types their price and clicks &quot;Send counter-offer&quot;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="775" as="sourcePoint"/><mxPoint x="420" y="775" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Contract upload -->
+        <mxCell id="box_contract" value="opt: Campaign requires a signed contract (requires_contract = true)" style="rounded=1;fillColor=#14532d;strokeColor=#22c55e;opacity=15;fontColor=#dcfce7;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="805" width="1150" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="mcr1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="11. Page shows brand&apos;s contract PDF → influencer reads it">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="835" as="sourcePoint"/><mxPoint x="145" y="835" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="mcr2" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="12. Influencer uploads their signed contract (PDF only, max 10MB)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="872" as="sourcePoint"/><mxPoint x="420" y="872" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="mcr3" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="13. Page uploads signed PDF directly to Supabase Storage (bucket: contracts/[token]/)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="910" as="sourcePoint"/><mxPoint x="1085" y="910" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="mcr4" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="14. Storage returns public URL → Page shows &quot;Contract uploaded successfully&quot; confirmation">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1085" y="910" as="sourcePoint"/><mxPoint x="145" y="910" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="box_contractval" value="If contract required but not uploaded → &apos;Accept&apos; button stays disabled" style="rounded=1;fillColor=#78350f;strokeColor=#f59e0b;opacity=15;fontColor=#fef3c7;align=left;verticalAlign=middle;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="120" y="930" width="600" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ── SUBMIT ── -->
+        <mxCell id="sec3" value="STEP 3 — Influencer submits their decision" style="text;html=1;fontColor=#22d3ee;fontSize=12;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="70" y="985" width="500" height="22" as="geometry" />
+        </mxCell>
+
+        <!-- 3 paths -->
+        <mxCell id="box_paths" value="alt: Influencer picks one of three actions" style="rounded=1;fillColor=#1e3a5f;strokeColor=#3b82f6;opacity=30;fontColor=#bfdbfe;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="1015" width="1680" height="530" as="geometry" />
+        </mxCell>
+
+        <!-- PATH A: ACCEPT -->
+        <mxCell id="seca" value="Path A — Accept Offer" style="text;html=1;fontColor=#86efac;fontSize=11;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="120" y="1038" width="300" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ma1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="15A. Influencer clicks &quot;Accept offer&quot;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="1068" as="sourcePoint"/><mxPoint x="420" y="1068" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="ma2" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="16A. Page validates: contract uploaded? products selected? → POST /api/apply/[token]">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="1108" as="sourcePoint"/><mxPoint x="740" y="1108" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="ma3" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="17A. API updates campaign_influencers: status=accepted, selected_products, note, signed_contract_url">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="740" y="1148" as="sourcePoint"/><mxPoint x="1440" y="1148" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="ma4" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="18A. Page shows: &quot;Thank you! Your acceptance has been sent. The brand will be in touch soon.&quot;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="1188" as="sourcePoint"/><mxPoint x="145" y="1188" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- PATH B: DECLINE -->
+        <mxCell id="secb" value="Path B — Decline Offer" style="text;html=1;fontColor=#f87171;fontSize=11;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="120" y="1225" width="300" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="mb1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#f87171;fontColor=#fca5a5;labelBackgroundColor=none;fontSize=10;" value="15B. Influencer clicks &quot;Refuse&quot; → confirmation popup appears: &quot;Are you sure?&quot;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="1255" as="sourcePoint"/><mxPoint x="420" y="1255" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="mb2" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#f87171;fontColor=#fca5a5;labelBackgroundColor=none;fontSize=10;" value="16B. Influencer confirms → Page sends POST /api/apply/[token] (action=decline)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="1295" as="sourcePoint"/><mxPoint x="740" y="1295" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="mb3" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#f87171;fontColor=#fca5a5;labelBackgroundColor=none;fontSize=10;" value="17B. API updates campaign_influencers: status=declined">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="740" y="1335" as="sourcePoint"/><mxPoint x="1440" y="1335" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="mb4" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#f87171;fontColor=#fca5a5;labelBackgroundColor=none;fontSize=10;" value="18B. Page shows: &quot;Thank you for your time! We hope to work with you in the future.&quot;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="1375" as="sourcePoint"/><mxPoint x="145" y="1375" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- PATH C: COUNTER -->
+        <mxCell id="secc" value="Path C — Counter Offer" style="text;html=1;fontColor=#fde68a;fontSize=11;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="120" y="1415" width="300" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="mc1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="15C. Influencer types their price → clicks &quot;Send counter-offer&quot;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="1445" as="sourcePoint"/><mxPoint x="420" y="1445" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="mc2" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="16C. Page sends POST /api/apply/[token] (action=counter, counter_offer_amount in cents)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="1485" as="sourcePoint"/><mxPoint x="740" y="1485" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="mc3" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="17C. API updates campaign_influencers: status=countered, counter_offer_amount">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="740" y="1525" as="sourcePoint"/><mxPoint x="1440" y="1525" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="mc4" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="18C. Page shows: &quot;Counter-offer sent! The brand will review it and get back to you.&quot;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="1565" as="sourcePoint"/><mxPoint x="145" y="1565" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Submission failed -->
+        <mxCell id="box_err" value="alt: Submission failed (network error / DB error)" style="rounded=1;fillColor=#78350f;strokeColor=#f59e0b;opacity=18;fontColor=#fef3c7;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="1580" width="1000" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="merr" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="API returns error or network fails → Page shows error banner → Influencer can retry">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="740" y="1605" as="sourcePoint"/><mxPoint x="145" y="1605" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Note -->
+        <mxCell id="note" value="Note: The &apos;Accept&apos; button is disabled if:&#xa;- Campaign requires a contract AND signed_contract_url is null&#xa;- Campaign is paid_with_product AND no products are selected" style="rounded=1;fillColor=#1e293b;strokeColor=#475569;opacity=80;fontColor=#94a3b8;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="1670" width="700" height="65" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

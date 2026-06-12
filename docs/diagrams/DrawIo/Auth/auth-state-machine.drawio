@@ -1,0 +1,73 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="auth-state-machine" name="Auth State Machine">
+    <mxGraphModel dx="1155" dy="720" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="state-unauthenticated" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#374151;fontColor=#FFFFFF;fontStyle=1" value="unauthenticated" vertex="1">
+          <mxGeometry height="80" width="160" x="360" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="state-ffp" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F59E0B;strokeColor=#D97706;fontColor=#FFFFFF;fontStyle=1" value="first_factor_pending" vertex="1">
+          <mxGeometry height="80" width="160" x="360" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-1" edge="1" parent="1" source="state-unauthenticated" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="state-ffp" value="signIn.create()&#xa;(entering credentials)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="state-nsf" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F59E0B;strokeColor=#D97706;fontColor=#FFFFFF;fontStyle=1" value="needs_second_factor" vertex="1">
+          <mxGeometry height="80" width="160" x="360" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-2" edge="1" parent="1" source="state-ffp" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="state-nsf" value="password verified&#xa;(&amp; 2FA is enabled)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="state-auth" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#10B981;strokeColor=#059669;fontColor=#FFFFFF;fontStyle=1" value="authenticated&#xa;(session active)" vertex="1">
+          <mxGeometry height="80" width="160" x="360" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-3" edge="1" parent="1" source="state-nsf" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="state-auth" value="attemptSecondFactor()&#xa;OTP verified">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-direct-auth" edge="1" parent="1" source="state-ffp" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="state-auth" value="password verified&#xa;(No 2FA)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="600" y="280" />
+              <mxPoint x="600" y="680" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="state-expired" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#EF4444;strokeColor=#B91C1C;fontColor=#FFFFFF;fontStyle=1" value="session_expired" vertex="1">
+          <mxGeometry height="80" width="160" x="120" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-expire" edge="1" parent="1" source="state-auth" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="state-expired" value="JWT/cookie expiration&#xa;timeout">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="200" y="680" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-reauth" edge="1" parent="1" source="state-expired" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="state-ffp" value="Re-login">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="200" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="state-signed-out" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#111827;strokeColor=#374151;fontColor=#FFFFFF;fontStyle=1" value="signed_out" vertex="1">
+          <mxGeometry height="80" width="160" x="720" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-signout" edge="1" parent="1" source="state-auth" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="state-signed-out" value="User clicks Sign Out&#xa;clerk.signOut()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="800" y="680" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-reset" edge="1" parent="1" source="state-signed-out" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="state-unauthenticated" value="Return to base state">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="800" y="80" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,46 @@
+sequenceDiagram
+    actor User
+
+    box Frontend
+    participant SignInPage as /sign-in/brand<br>Page & Form
+    participant AuthCallback as /auth/auth-callback<br>AuthCallbackClient
+    end
+
+    box Backend
+    participant Clerk as Clerk SDK<br>(Auth / Users)
+    participant SetRoleAPI as /api/set-role<br>route.ts
+    participant Layout as /brand<br>Layout Guard
+    participant Middleware as Middleware
+    end
+
+    User->>SignInPage: Enters Email & Password
+    SignInPage->>Clerk: signIn.create({ identifier, password })
+    
+    alt Status Complete
+        Clerk-->>SignInPage: Created Session ID
+        SignInPage->>Clerk: setActive({ session: createdSessionId })
+        SignInPage->>AuthCallback: router.push('/auth/auth-callback?next=/brand')
+    else Session Exists Error (User stuck half-registered)
+        Clerk-->>SignInPage: error: session_exists
+        SignInPage->>SetRoleAPI: fetch POST { role: "brand" } (Fix missing role)
+        SetRoleAPI->>Clerk: clerkClient.users.updateUserMetadata(...)
+        SetRoleAPI-->>SignInPage: Success
+        SignInPage->>AuthCallback: router.push('/auth/auth-callback?next=/brand')
+    end
+
+    AuthCallback->>Clerk: session.reload() (Force fetch new token)
+    AuthCallback->>Clerk: Server Action getAuthStatus() via currentUser()
+    Clerk-->>AuthCallback: { success: true }
+    AuthCallback->>Middleware: router.replace('/brand')
+    
+    Middleware->>Clerk: auth()
+    Middleware->>Middleware: check path vs sessionClaims.publicMetadata.role
+    Middleware-->>Layout: Allows /brand (route matched role)
+    
+    Layout->>Clerk: auth()
+    Layout->>Layout: Check role from sessionClaims
+    alt Role missing from JWT (Stale token race condition)
+        Layout->>Clerk: clerkClient.users.getUser(userId)
+        Clerk-->>Layout: user with live role
+    end
+    Layout-->>User: Renders Brand Dashboard <Sidebar />

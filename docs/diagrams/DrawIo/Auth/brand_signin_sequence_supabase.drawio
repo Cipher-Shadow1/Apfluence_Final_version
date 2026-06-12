@@ -1,0 +1,151 @@
+<mxfile host="app.diagrams.net" agent="Codex">
+  <diagram id="brand-signin-supabase" name="Brand Sign-In (Supabase)">
+    <mxGraphModel dx="418" dy="260" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Background -->
+        <mxCell id="bg" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0b1730;strokeColor=#22314f;" value="" vertex="1">
+          <mxGeometry height="1230" width="1620" x="40" y="40" as="geometry" />
+        </mxCell>
+
+        <!-- Title -->
+        <mxCell id="title" parent="1" style="text;html=1;fontColor=#f8fafc;fontStyle=1;fontSize=15;align=center;" value="Brand Sign-In Flow — Apfluence" vertex="1">
+          <mxGeometry x="500" y="50" width="600" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ── Participant headers ── -->
+        <mxCell id="p1" parent="1" style="rounded=1;arcSize=10;fillColor=#f97316;strokeColor=#ea580c;fontColor=#ffffff;fontStyle=1;fontSize=11;" value="Brand User (Browser)" vertex="1">
+          <mxGeometry height="36" width="180" x="80" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="p2" parent="1" style="rounded=1;arcSize=10;fillColor=#1d4ed8;strokeColor=#60a5fa;fontColor=#ffffff;fontStyle=1;fontSize=11;" value="App (BrandSignInForm)" vertex="1">
+          <mxGeometry height="36" width="190" x="420" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" parent="1" style="rounded=1;arcSize=10;fillColor=#16a34a;strokeColor=#4ade80;fontColor=#ffffff;fontStyle=1;fontSize=11;" value="Supabase Auth" vertex="1">
+          <mxGeometry height="36" width="150" x="830" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="p4" parent="1" style="rounded=1;arcSize=10;fillColor=#7c3aed;strokeColor=#c4b5fd;fontColor=#ffffff;fontStyle=1;fontSize=11;" value="Brand-Onboard API" vertex="1">
+          <mxGeometry height="36" width="170" x="1100" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="p5" parent="1" style="rounded=1;arcSize=10;fillColor=#0f766e;strokeColor=#2dd4bf;fontColor=#ffffff;fontStyle=1;fontSize=11;" value="Middleware" vertex="1">
+          <mxGeometry height="36" width="130" x="1400" y="95" as="geometry" />
+        </mxCell>
+
+        <!-- ── Lifelines ── -->
+        <mxCell id="lf1" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#64748b;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="170" y="155" as="sourcePoint"/><mxPoint x="170" y="1230" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf2" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#64748b;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="515" y="155" as="sourcePoint"/><mxPoint x="515" y="1230" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf3" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#64748b;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="905" y="155" as="sourcePoint"/><mxPoint x="905" y="1230" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf4" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#64748b;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1185" y="155" as="sourcePoint"/><mxPoint x="1185" y="1230" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf5" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#64748b;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1465" y="155" as="sourcePoint"/><mxPoint x="1465" y="1230" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- ══════════════════════════════════════════════════════════ -->
+        <!-- STEP 1 — User visits page -->
+        <mxCell id="m1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="1. User opens sign-in page (/sign-in/brand)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="170" y="200" as="sourcePoint"/><mxPoint x="515" y="200" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m2" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="2. App shows sign-in form (email + password)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="515" y="240" as="sourcePoint"/><mxPoint x="170" y="240" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- STEP 2 — Form validation box -->
+        <mxCell id="box_validate" parent="1" style="rounded=1;fillColor=#1e293b;strokeColor=#475569;opacity=80;fontColor=#cbd5e1;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" value="Form validation (client-side)" vertex="1">
+          <mxGeometry x="100" y="265" width="460" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="m3" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="3. User types email and password, clicks Sign In">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="170" y="295" as="sourcePoint"/><mxPoint x="515" y="295" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- STEP 3 — Client checks empty fields -->
+        <mxCell id="box_empty" parent="1" style="rounded=1;fillColor=#78350f;strokeColor=#f59e0b;opacity=18;fontColor=#fef3c7;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" value="alt: Fields are empty">
+          <mxGeometry x="100" y="340" width="460" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="m_empty" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="3A. App shows &quot;Email and password required&quot; toast">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="515" y="362" as="sourcePoint"/><mxPoint x="170" y="362" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- STEP 4 — Send to Supabase -->
+        <mxCell id="m4" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="4. App calls supabase.auth.signInWithPassword(email, password)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="515" y="420" as="sourcePoint"/><mxPoint x="905" y="420" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m5" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="5. Supabase checks email + password in database">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="905" y="460" as="sourcePoint"/><mxPoint x="515" y="460" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- ── ALT 1: Sign-in FAILED box ── -->
+        <mxCell id="a1" parent="1" style="rounded=1;fillColor=#78350f;strokeColor=#f59e0b;opacity=18;fontColor=#fef3c7;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" value="alt 1: Sign-in failed" vertex="1">
+          <mxGeometry x="100" y="490" width="870" height="280" as="geometry" />
+        </mxCell>
+
+        <!-- 6A — Wrong password -->
+        <mxCell id="m6a" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="6A. Supabase returns error: &quot;invalid login credentials&quot;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="905" y="530" as="sourcePoint"/><mxPoint x="515" y="530" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m7a" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="7A. App shows toast: &quot;Incorrect email or password&quot;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="515" y="570" as="sourcePoint"/><mxPoint x="170" y="570" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- ── INNER alt: Email not confirmed ── -->
+        <mxCell id="a1b" parent="1" style="rounded=1;fillColor=#1e3a5f;strokeColor=#3b82f6;opacity=30;fontColor=#bfdbfe;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" value="loop: Email not confirmed — resend &amp; redirect" vertex="1">
+          <mxGeometry x="120" y="600" width="820" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="m6b" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#93c5fd;fontColor=#bfdbfe;labelBackgroundColor=none;fontSize=10;" value="6B. Supabase error: &quot;email not confirmed&quot;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="905" y="635" as="sourcePoint"/><mxPoint x="515" y="635" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m7b" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#93c5fd;fontColor=#bfdbfe;labelBackgroundColor=none;fontSize=10;" value="7B. App calls supabase.auth.resend() to send a new code">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="515" y="670" as="sourcePoint"/><mxPoint x="905" y="670" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m8b" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#93c5fd;fontColor=#bfdbfe;labelBackgroundColor=none;fontSize=10;" value="8B. App redirects user to /sign-up/brand/verify page">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="515" y="710" as="sourcePoint"/><mxPoint x="170" y="710" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- ── ALT 2: Sign-in SUCCESS box ── -->
+        <mxCell id="a2" parent="1" style="rounded=1;fillColor=#14532d;strokeColor=#22c55e;opacity=18;fontColor=#dcfce7;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" value="alt 2: Sign-in success" vertex="1">
+          <mxGeometry x="100" y="800" width="1530" height="390" as="geometry" />
+        </mxCell>
+
+        <mxCell id="m9" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="9. Supabase returns: session (access_token) + user object">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="905" y="840" as="sourcePoint"/><mxPoint x="515" y="840" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m10" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="10. App calls POST /api/auth/brand-onboard (sends access_token)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="515" y="880" as="sourcePoint"/><mxPoint x="1185" y="880" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Inner alt inside success: onboard 404 -->
+        <mxCell id="a2b" parent="1" style="rounded=1;fillColor=#78350f;strokeColor=#f59e0b;opacity=20;fontColor=#fef3c7;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" value="alt: Brand profile not found (404)" vertex="1">
+          <mxGeometry x="120" y="905" width="1060" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="m10b" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="10A. API returns 404 → App sends user back to /sign-up/brand">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1185" y="928" as="sourcePoint"/><mxPoint x="170" y="928" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <mxCell id="m11" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="11. API confirms brand profile exists (200 OK)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1185" y="990" as="sourcePoint"/><mxPoint x="515" y="990" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m12" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="12. App navigates to /brand (dashboard)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="515" y="1030" as="sourcePoint"/><mxPoint x="1465" y="1030" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m13" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="13. Middleware reads session cookie + calls supabase.auth.getUser()">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1465" y="1070" as="sourcePoint"/><mxPoint x="905" y="1070" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m14" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="14. Middleware checks Supabase DB: is user in &apos;brands&apos; table? → role = &apos;brand&apos;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1465" y="1110" as="sourcePoint"/><mxPoint x="905" y="1110" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m15" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="15. Role matches → Access granted → Dashboard is displayed">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1465" y="1155" as="sourcePoint"/><mxPoint x="170" y="1155" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

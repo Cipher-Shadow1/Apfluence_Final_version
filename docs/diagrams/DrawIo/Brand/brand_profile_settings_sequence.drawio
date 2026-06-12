@@ -1,0 +1,172 @@
+<mxfile host="app.diagrams.net" agent="Codex">
+  <diagram id="brand-settings" name="Brand Profile Update">
+    <mxGraphModel dx="1300" dy="860" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Background -->
+        <mxCell id="bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0f172a;strokeColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="1820" height="1820" as="geometry" />
+        </mxCell>
+
+        <!-- Title -->
+        <mxCell id="title" value="Brand Profile &amp; Settings Update — Apfluence" style="text;html=1;fontColor=#f8fafc;fontStyle=1;fontSize=15;align=center;" vertex="1" parent="1">
+          <mxGeometry x="450" y="52" width="900" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Participants -->
+        <mxCell id="p1" value="Brand User&#xa;(Browser)" style="rounded=1;arcSize=12;fillColor=#f97316;strokeColor=#ea580c;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="70" y="95" width="150" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="p2" value="Settings Page&#xa;(/brand/settings)" style="rounded=1;arcSize=12;fillColor=#2563eb;strokeColor=#60a5fa;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="330" y="95" width="180" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" value="Gmail Setup Modal&#xa;(UI Component)" style="rounded=1;arcSize=12;fillColor=#1e293b;strokeColor=#475569;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="630" y="95" width="180" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="p4" value="Server Actions&#xa;(brand.ts)" style="rounded=1;arcSize=12;fillColor=#7c3aed;strokeColor=#a78bfa;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="940" y="95" width="190" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="p5" value="Supabase DB&#xa;(brands table)" style="rounded=1;arcSize=12;fillColor=#be185d;strokeColor=#f472b6;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="95" width="200" height="44" as="geometry" />
+        </mxCell>
+
+        <!-- Lifelines -->
+        <mxCell id="lf1" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="160" as="sourcePoint"/><mxPoint x="145" y="1820" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf2" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="160" as="sourcePoint"/><mxPoint x="420" y="1820" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf3" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="720" y="160" as="sourcePoint"/><mxPoint x="720" y="1820" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf4" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1035" y="160" as="sourcePoint"/><mxPoint x="1035" y="1820" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="lf5" edge="1" parent="1" style="endArrow=none;dashed=1;strokeColor=#94a3b8;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1360" y="160" as="sourcePoint"/><mxPoint x="1360" y="1820" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- PART A: Page loads -->
+        <mxCell id="sec1" value="PART A — Page loads and fetches saved data" style="text;html=1;fontColor=#22d3ee;fontSize=12;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="70" y="218" width="600" height="22" as="geometry" />
+        </mxCell>
+
+        <mxCell id="m1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="1. Brand opens the Settings page">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="258" as="sourcePoint"/><mxPoint x="420" y="258" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m2" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="2. Page reads the Brand's user ID from their active login session">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="298" as="sourcePoint"/><mxPoint x="1360" y="298" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Two parallel loads -->
+        <mxCell id="box_load" value="Both of these happen at the same time when the page opens" style="rounded=1;fillColor=#1e293b;strokeColor=#475569;opacity=80;fontColor=#cbd5e1;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="328" width="1450" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="m3a" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#94a3b8;fontColor=#cbd5e1;labelBackgroundColor=none;fontSize=10;" value="3A. Page asks for Gmail connection status (is Gmail connected? what email?)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="358" as="sourcePoint"/><mxPoint x="1360" y="358" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m3b" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#94a3b8;fontColor=#cbd5e1;labelBackgroundColor=none;fontSize=10;" value="3B. Page asks for all saved brand defaults (country, language, currency, billing info, etc.)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="398" as="sourcePoint"/><mxPoint x="1035" y="398" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m3c" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#94a3b8;fontColor=#cbd5e1;labelBackgroundColor=none;fontSize=10;" value="3C. Server action reads the brand row directly from database (bypasses security rules via admin access)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1035" y="435" as="sourcePoint"/><mxPoint x="1360" y="435" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <mxCell id="m4" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="4. All fields pre-filled with saved data. Gmail shows &quot;Connected — email@gmail.com&quot; or &quot;Not configured&quot;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="500" as="sourcePoint"/><mxPoint x="145" y="500" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- PART B: Editing and saving defaults -->
+        <mxCell id="sec2" value="PART B — Brand edits and saves their settings" style="text;html=1;fontColor=#22d3ee;fontSize=12;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="70" y="540" width="600" height="22" as="geometry" />
+        </mxCell>
+
+        <mxCell id="m5" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="5. Brand edits any field — country, city, timezone, language, currency, phone, billing name, tax ID, invoice email, brand voice, shipping defaults, etc.">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="578" as="sourcePoint"/><mxPoint x="420" y="578" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m6" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="6. Any change clears the previous save message — the Save button stays active">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="618" as="sourcePoint"/><mxPoint x="420" y="648" as="targetPoint"/><Array as="points"><mxPoint x="450" y="618"/><mxPoint x="450" y="648"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="m7" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="7. Brand clicks &quot;Save defaults&quot;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="680" as="sourcePoint"/><mxPoint x="420" y="680" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m8" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="8. Page calls updateBrandDefaults() server action with all current field values">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="720" as="sourcePoint"/><mxPoint x="1035" y="720" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m9" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="9. Server action updates the brand row in the database (matched by user ID)">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1035" y="760" as="sourcePoint"/><mxPoint x="1360" y="760" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- alt: save result -->
+        <mxCell id="box_save" value="alt: Save result" style="rounded=1;fillColor=#1e3a5f;strokeColor=#3b82f6;opacity=20;fontColor=#bfdbfe;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="798" width="1450" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="ms1" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="10A. Success → green message shown: &quot;Brand defaults saved successfully&quot;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1035" y="835" as="sourcePoint"/><mxPoint x="145" y="835" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="ms2" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#f87171;fontColor=#fecaca;labelBackgroundColor=none;fontSize=10;" value="10B. Error → red error message shown — no data is lost, Brand can try again">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1035" y="890" as="sourcePoint"/><mxPoint x="145" y="890" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- PART C: Gmail connection -->
+        <mxCell id="sec3" value="PART C — Brand connects or updates their Gmail account" style="text;html=1;fontColor=#22d3ee;fontSize=12;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="70" y="960" width="700" height="22" as="geometry" />
+        </mxCell>
+
+        <!-- alt: not connected vs already connected -->
+        <mxCell id="box_gmail" value="alt: Gmail not connected — Brand clicks &quot;Connect Gmail&quot;" style="rounded=1;fillColor=#78350f;strokeColor=#f59e0b;opacity=18;fontColor=#fef3c7;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="993" width="1450" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="mg1" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="11A. Page shows a blue &quot;Connect Gmail&quot; button with an explanation message">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="1020" as="sourcePoint"/><mxPoint x="145" y="1020" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="mg2" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#fde68a;fontColor=#fef3c7;labelBackgroundColor=none;fontSize=10;" value="11B. Brand clicks it → Gmail Setup Modal opens">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="1055" as="sourcePoint"/><mxPoint x="720" y="1055" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <mxCell id="box_gmail2" value="alt: Gmail already connected — Brand clicks &quot;Update App Password&quot;" style="rounded=1;fillColor=#1e293b;strokeColor=#475569;opacity=80;fontColor=#cbd5e1;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="1088" width="1450" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="mg3" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#94a3b8;fontColor=#cbd5e1;labelBackgroundColor=none;fontSize=10;" value="11C. Page shows green &quot;Connected — email@gmail.com&quot; badge + &quot;Update App Password&quot; button">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="420" y="1113" as="sourcePoint"/><mxPoint x="145" y="1113" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="mg4" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#94a3b8;fontColor=#cbd5e1;labelBackgroundColor=none;fontSize=10;" value="11D. Brand clicks it → same Gmail Setup Modal opens to replace the password">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="1145" as="sourcePoint"/><mxPoint x="720" y="1145" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- PART D: Inside the Gmail modal -->
+        <mxCell id="sec4" value="PART D — Inside the Gmail Setup Modal" style="text;html=1;fontColor=#22d3ee;fontSize=12;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="70" y="1200" width="600" height="22" as="geometry" />
+        </mxCell>
+
+        <mxCell id="m10" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="12. Modal is open — Brand types their Gmail address + their Gmail App Password">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="1240" as="sourcePoint"/><mxPoint x="720" y="1240" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m11" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="13. Brand clicks &quot;Save&quot; inside the modal">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="145" y="1280" as="sourcePoint"/><mxPoint x="720" y="1280" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m12" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="14. Modal calls the server action to save the App Password to the database">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="720" y="1320" as="sourcePoint"/><mxPoint x="1035" y="1320" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m13" edge="1" parent="1" style="endArrow=block;endFill=1;strokeColor=#e2e8f0;fontColor=#f8fafc;labelBackgroundColor=none;fontSize=10;" value="15. Database saves the Gmail email + App Password in the brand's row">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="1035" y="1360" as="sourcePoint"/><mxPoint x="1360" y="1360" as="targetPoint"/></mxGeometry>
+        </mxCell>
+        <mxCell id="m14" edge="1" parent="1" style="endArrow=open;dashed=1;strokeColor=#86efac;fontColor=#dcfce7;labelBackgroundColor=none;fontSize=10;" value="16. Modal closes → Settings page status badge instantly updates to &quot;Connected — email@gmail.com&quot;">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="720" y="1400" as="sourcePoint"/><mxPoint x="145" y="1400" as="targetPoint"/></mxGeometry>
+        </mxCell>
+
+        <!-- Note -->
+        <mxCell id="note" value="Note: The App Password is a special 16-character password generated in Google Account settings. It is stored encrypted in the database and used when sending emails." style="rounded=1;fillColor=#1e293b;strokeColor=#475569;opacity=80;fontColor=#94a3b8;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="1480" width="1000" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="note2" value="Fields saved: country, region, city, timezone, language, currency, WhatsApp phone, billing name, tax ID, invoice email, finance contact, shipping origin, shipping notes, brand voice, mandatory terms, forbidden terms." style="rounded=1;fillColor=#1e293b;strokeColor=#475569;opacity=80;fontColor=#94a3b8;align=left;verticalAlign=top;spacingTop=5;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="1540" width="1400" height="44" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
